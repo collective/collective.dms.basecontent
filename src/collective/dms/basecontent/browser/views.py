@@ -1,4 +1,4 @@
-from collective.documentviewer.views import DocumentViewerView
+# from collective.documentviewer.views import DocumentViewerView
 from collective.externaleditor.browser.views import ExternalEditorEnabledView as BaseExternalEditorEnabledView
 from plone.dexterity.browser.edit import DefaultEditForm
 from plone.dexterity.browser.view import DefaultView
@@ -9,16 +9,16 @@ import json
 import os
 
 
-class VersionViewerView(DocumentViewerView):
-    def index(self):
-        self.table = self.context.restrictedTraverse('@@iconifiedcategory_table')
-        return super(VersionViewerView, self).index()
+# class VersionViewerView(DocumentViewerView):
+#     def index(self):
+#         self.table = self.context.restrictedTraverse('@@iconifiedcategory_table')
+#         return super(VersionViewerView, self).index()
 
 
-class JSONVersionViewerView(DocumentViewerView):
-    def index(self):
-        self.request.response.setHeader("Content-Type", "application/json")
-        return json.dumps(self.dv_data())
+# class JSONVersionViewerView(DocumentViewerView):
+#     def index(self):
+#         self.request.response.setHeader('Content-Type', 'application/json')
+#         return json.dumps(self.dv_data())
 
 
 class DmsDocumentView(DefaultView):

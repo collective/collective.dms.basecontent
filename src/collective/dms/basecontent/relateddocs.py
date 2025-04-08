@@ -13,7 +13,6 @@ from zope.cachedescriptors.property import CachedProperty
 from zope.component import adapter
 from zope.component import getUtility
 from zope.interface import implementer
-from zope.interface import implements
 from zope.intid.interfaces import IIntIds
 
 
@@ -71,9 +70,8 @@ def RelatedDocsFieldWidget(field, request):
     return FieldWidget(field, RelatedDocsWidget(field.display_backrefs, request))
 
 
+@implementer(IRelatedDocs)
 class RelatedDocs(RelationList):
-    implements(IRelatedDocs)
-
     def __init__(self, portal_types=None, display_backrefs=False, object_provides=None, **kwargs):
         self.display_backrefs = display_backrefs
         kw = dict()

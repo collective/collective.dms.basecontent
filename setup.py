@@ -43,7 +43,7 @@ setup(
     zip_safe=False,
     install_requires=[
         "z3c.table>=2.2",
-        "collective.documentviewer",
+        # "collective.documentviewer",
         "collective.externaleditor",
         "collective.iconifiedcategory",
         "collective.z3cform.select2",
@@ -56,7 +56,6 @@ setup(
         "plone.app.contenttypes",
         "plone.app.dexterity",
         "plone.app.relationfield",
-        "plone.directives.form",
         "plone.formwidget.contenttree",
         "plone.namedfile",
         "plone.principalsource",

@@ -8,7 +8,7 @@ from plone.dexterity.content import Container
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.supermodel import model
 from zope import schema
-from zope.interface import implements
+from zope.interface import implementer
 
 
 class IDmsDocument(model.Schema):
@@ -42,10 +42,10 @@ class IDmsDocument(model.Schema):
     )
 
 
+@implementer(IDmsDocument)
 class DmsDocument(Container):
     """DmsDocument"""
 
-    implements(IDmsDocument)
     # disable local roles inheritance
     __ac_local_roles_block__ = True
 

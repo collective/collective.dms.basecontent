@@ -5,12 +5,11 @@ from imio.annex.content.annex import Annex
 from imio.annex.content.annex import IAnnex
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
-from plone.directives.form import default_value
 from Products.CMFPlone.utils import base_hasattr
 from Products.CMFPlone.utils import safe_unicode
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
-from zope.interface import implements
+from zope.interface import implementer
 
 
 class IDmsFile(IAnnex):
@@ -27,10 +26,10 @@ class IDmsFile(IAnnex):
     form.mode(description="hidden")
 
 
+@implementer(IDmsFile)
 class DmsFile(Annex):
     """DmsFile"""
 
-    implements(IDmsFile)
     __ac_local_roles_block__ = True
 
     incomingmail = False
@@ -57,10 +56,10 @@ class IDmsAppendixFile(IAnnex):
     form.mode(description="hidden")
 
 
+@implementer(IDmsAppendixFile)
 class DmsAppendixFile(Annex):
     """DmsAppendixFile"""
 
-    implements(IDmsAppendixFile)
     __ac_local_roles_block__ = True
 
 
@@ -71,7 +70,6 @@ class DmsAppendixFileSchemaPolicy(DexteritySchemaPolicy):
         return (IDmsAppendixFile,)
 
 
-@default_value(field=IDmsFile["title"])
 def titleDefaultValue(data):
     container = data.context
     annotations = IAnnotations(container)
