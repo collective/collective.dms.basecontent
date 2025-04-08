@@ -5,13 +5,13 @@ from plone.app.contenttypes.interfaces import IFile
 from plone.autoform import directives as form
 from plone.dexterity.content import Item
 from plone.dexterity.schema import DexteritySchemaPolicy
-from plone.directives.form import default_value
 from plone.namedfile.field import NamedBlobFile
 from plone.supermodel import model
 from Products.CMFPlone.utils import base_hasattr
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
-from zope.interface import implements
+from zope.interface import implementer
+import six
 
 
 class IDmsFile(model.Schema, IFile):
@@ -33,10 +33,10 @@ class IDmsFile(model.Schema, IFile):
         required=False,
     )
 
-
+@implementer(IDmsFile)
 class DmsFile(Item):
     """DmsFile"""
-    implements(IDmsFile)
+
     __ac_local_roles_block__ = True
 
     incomingmail = False
@@ -65,10 +65,9 @@ class IDmsAppendixFile(model.Schema, IFile):
         required=True,
     )
 
-
+@implementer(IDmsAppendixFile)
 class DmsAppendixFile(Item):
     """DmsAppendixFile"""
-    implements(IDmsAppendixFile)
     __ac_local_roles_block__ = True
 
 
@@ -79,7 +78,6 @@ class DmsAppendixFileSchemaPolicy(DexteritySchemaPolicy):
         return (IDmsAppendixFile, )
 
 
-@default_value(field=IDmsFile['title'])
 def titleDefaultValue(data):
     container = data.context
     annotations = IAnnotations(container)
@@ -87,7 +85,7 @@ def titleDefaultValue(data):
         version_number = 1
     else:
         version_number = annotations['higher_version'].value + 1
-    return unicode(version_number)
+    return six.text_type(version_number)
 
 
 def update_higher_version(context, event):

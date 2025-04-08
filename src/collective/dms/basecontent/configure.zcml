@@ -6,9 +6,6 @@
 
   <include package=".upgrades" />
 
-  <include package="plone.directives.form" file="meta.zcml" />
-  <include package="plone.directives.form" />
-
   <i18n:registerTranslations directory="locales" />
 
   <include package="plone.api" />
@@ -16,8 +13,8 @@
   <include package="plone.app.relationfield" />
   <include package="plone.principalsource" />
   <include package="plone.supermodel" />
-  <include package="collective.z3cform.select2" />
-  <include package="collective.documentviewer" />
+  <include package="collective.z3cform.select2.widget" file="adapters.zcml" />
+  <!-- include package="collective.documentviewer" /-->
   <include package="dexterity.localrolesfield" />
 
   <include package=".browser" />

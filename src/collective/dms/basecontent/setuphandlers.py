@@ -1,10 +1,11 @@
 def setup_documentviewer(portal):
-    from collective.documentviewer.settings import GlobalSettings
-    dv_settings = GlobalSettings(portal)
-    dv_settings.auto_layout_file_types = ('pdf', 'ppt', 'word', 'rft')
-    dv_settings.auto_convert = True
-    dv_settings.show_sidebar = False
-    dv_settings.show_search = False
+    # from collective.documentviewer.settings import GlobalSettings
+    # dv_settings = GlobalSettings(portal)
+    # dv_settings.auto_layout_file_types = ('pdf', 'ppt', 'word', 'rft')
+    # dv_settings.auto_convert = True
+    # dv_settings.show_sidebar = False
+    # dv_settings.show_search = False
+    pass
 
 
 def importFinalSteps(context):
@@ -15,4 +16,4 @@ def importFinalSteps(context):
         return
 
     site = context.getSite()
-    setup_documentviewer(site)
+    # setup_documentviewer(site)

@@ -78,20 +78,20 @@
         permission="cmf.ModifyPortalContent"
         />
 
-    <browser:page
+    <!-- browser:page
         name="versionviewer"
         for="plone.app.contenttypes.interfaces.IFile"
         class=".views.VersionViewerView"
         template="templates/versionviewer.pt"
         permission="zope2.View"
-        layer="collective.documentviewer.interfaces.ILayer" />
+        layer="collective.documentviewer.interfaces.ILayer" /-->
 
-    <browser:page
+    <!-- browser:page
         name="dvdata"
         for="plone.app.contenttypes.interfaces.IFile"
         class=".views.JSONVersionViewerView"
         permission="zope2.View"
-        layer="collective.documentviewer.interfaces.ILayer" />
+        layer="collective.documentviewer.interfaces.ILayer" /-->
 
       <!-- batch provider -->
     <adapter
