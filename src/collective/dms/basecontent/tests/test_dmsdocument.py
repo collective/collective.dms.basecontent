@@ -1,15 +1,14 @@
 # -*- coding: utf8 -*-
 
-from collective.dms.basecontent.source import RecipientGroupsVocabulary
-from collective.dms.basecontent.source import TreatingGroupsVocabulary
 from collective.dms.basecontent.testing import DMS_TESTS_PROFILE_FUNCTIONAL
 from ecreall.helpers.testing.base import BaseTest
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.dexterity.utils import createContentInContainer
+from zope.component import getUtility
+from zope.schema.interfaces import IVocabularyFactory
 
 import unittest
-
-from plone.dexterity.utils import createContentInContainer
 
 
 class TestDmsdocument(unittest.TestCase, BaseTest):
@@ -24,18 +23,18 @@ class TestDmsdocument(unittest.TestCase, BaseTest):
         self.doc = createContentInContainer(self.portal, 'dmsdocument', **{'title': 'Doc 1'})
 
     def test_RecipientGroupsVocabulary(self):
-        voc_inst = RecipientGroupsVocabulary()
+        voc_inst = getUtility(IVocabularyFactory, "collective.dms.basecontent.recipient_groups")
         voc_ids = [i.token for i in voc_inst(self.portal).__iter__()]
-        self.assertEqual(set(voc_ids), set(['Administrators', 'Reviewers', 'Site Administrators']))
-        voc_ids = [i.token for i in voc_inst(self.portal).search('user')]
-        self.assertEqual(set(voc_ids), set(['test_user_1_', 'AuthenticatedUsers']))
+        self.assertEqual(set(voc_ids), {'Administrators', 'Reviewers', 'Site Administrators'})
+        voc_ids = [i.token for i in voc_inst(self.portal, query="rev")]
+        self.assertEqual(set(voc_ids), {'Reviewers'})
 
     def test_TreatingGroupsVocabulary(self):
-        voc_inst = TreatingGroupsVocabulary()
+        voc_inst = getUtility(IVocabularyFactory, "collective.dms.basecontent.treating_groups")
         voc_ids = [i.token for i in voc_inst(self.portal).__iter__()]
-        self.assertEqual(set(voc_ids), set(['Administrators', 'Reviewers', 'Site Administrators']))
-        voc_ids = [i.token for i in voc_inst(self.portal).search('user')]
-        self.assertEqual(set(voc_ids), set(['test_user_1_', 'AuthenticatedUsers']))
+        self.assertEqual(set(voc_ids), {'Administrators', 'Reviewers', 'Site Administrators'})
+        voc_ids = [i.token for i in voc_inst(self.portal, query="admin")]
+        self.assertEqual(set(voc_ids), {'Administrators', 'Site Administrators'})
 
     def test_getmainfiles(self):
         self.assertListEqual(self.doc.get_mainfiles(), [])

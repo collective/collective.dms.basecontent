@@ -11,7 +11,6 @@
   <include package="plone.api" />
   <include package="plone.app.dexterity" />
   <include package="plone.app.relationfield" />
-  <include package="plone.principalsource" />
   <include package="plone.supermodel" />
   <include package="collective.z3cform.select2.widget" file="adapters.zcml" />
   <!-- include package="collective.documentviewer" /-->
@@ -72,18 +71,13 @@
 
     <!--vocabularies-->
     <utility
-        name="dms.principals"
-        factory="collective.dms.basecontent.source.PrincipalsVocabularyFactory"
-        />
-
-    <utility
         name="collective.dms.basecontent.treating_groups"
-        factory="collective.dms.basecontent.source.TreatingGroupsVocabulary"
+        factory="plone.app.vocabularies.principals.GroupsFactory"
         />
 
     <utility
         name="collective.dms.basecontent.recipient_groups"
-        factory="collective.dms.basecontent.source.RecipientGroupsVocabulary"
+        factory="plone.app.vocabularies.principals.GroupsFactory"
         />
 
     <!--various-->
