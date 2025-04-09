@@ -1,0 +1,18 @@
+<registry>
+  <record name="plone.exposeDCMetaTags" interface="plone.base.interfaces.controlpanel.ISiteSchema" field="exposeDCMetaTags">
+    <value>False</value>
+  </record>
+  <record name="plone.types_not_searched" interface="plone.base.interfaces.controlpanel.ISearchSchema" field="types_not_searched">
+    <value>
+      <element>dmsmainfile</element>
+      <element>dmsappendixfile</element>
+    </value>
+  </record>
+  <record name="plone.types_use_view_action_in_listings" interface="plone.base.interfaces.controlpanel.ITypesSchema" field="types_use_view_action_in_listings">
+    <value>
+      <element>dmsmainfile</element>
+      <element>dmsappendixfile</element>
+    </value>
+  </record>
+
+</registry>
