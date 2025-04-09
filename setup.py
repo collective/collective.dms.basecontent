@@ -58,7 +58,6 @@ setup(
         "plone.app.relationfield",
         "plone.formwidget.contenttree",
         "plone.namedfile",
-        "plone.principalsource",
         "setuptools",
         "z3c.blobfile",
     ],
