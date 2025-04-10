@@ -1,21 +1,17 @@
 #! -*- coding: utf8 -*-
-from setuptools import setup, find_packages
+from setuptools import find_packages
+from setuptools import setup
 
-version = '1.14.dev0'
+
+version = "1.14.dev0"
 
 long_description = (
-    open('README.rst').read()
-    + '\n' +
-    'Contributors\n'
-    '============\n'
-    + '\n' +
-    open('CONTRIBUTORS.rst').read()
-    + '\n' +
-    open('CHANGES.rst').read()
-    + '\n')
+    open("README.rst").read() + "\n" + "Contributors\n"
+    "============\n" + "\n" + open("CONTRIBUTORS.rst").read() + "\n" + open("CHANGES.rst").read() + "\n"
+)
 
 setup(
-    name='collective.dms.basecontent',
+    name="collective.dms.basecontent",
     version=version,
     description="Base content types for document management system",
     long_description=long_description,
@@ -34,40 +30,37 @@ setup(
         "Programming Language :: Python :: 2.7",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    keywords='document management system dms viewer',
-    author='Ecreall, Entrouvert, IMIO',
-    author_email='cedricmessiant@ecreall.com',
-    url='https://github.com/collective/collective.dms.basecontent',
-    download_url='https://pypi.org/project/collective.dms.basecontent',
-    license='gpl',
-    packages=find_packages('src'),
-    package_dir={'': 'src'},
-    namespace_packages=['collective', 'collective.dms'],
+    keywords="document management system dms viewer",
+    author="Ecreall, Entrouvert, IMIO",
+    author_email="cedricmessiant@ecreall.com",
+    url="https://github.com/collective/collective.dms.basecontent",
+    download_url="https://pypi.org/project/collective.dms.basecontent",
+    license="gpl",
+    packages=find_packages("src"),
+    package_dir={"": "src"},
+    namespace_packages=["collective", "collective.dms"],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'setuptools',
-        'collective.documentviewer',
-        'dexterity.localrolesfield',
-        'future',
-        'imio.helpers>=0.42',
-        'plone.api',
-        'plone.app.dexterity',
-        'plone.directives.form',
-        'plone.namedfile',
-        'z3c.blobfile',
-        'plone.app.contenttypes',
-        'plone.app.relationfield',
-        'plone.formwidget.contenttree',
-        'plone.principalsource',
-        'collective.z3cform.select2',
-        'z3c.table>=2.2',
+        "setuptools",
+        "collective.documentviewer",
+        "dexterity.localrolesfield",
+        "future",
+        "imio.helpers>=0.42",
+        "plone.api",
+        "plone.app.dexterity",
+        "plone.directives.form",
+        "plone.namedfile",
+        "z3c.blobfile",
+        "plone.app.contenttypes",
+        "plone.app.relationfield",
+        "plone.formwidget.contenttree",
+        "plone.principalsource",
+        "collective.z3cform.select2",
+        "z3c.table>=2.2",
     ],
     extras_require={
-        'test': ['plone.app.testing',
-                 'ecreall.helpers.testing',
-                 'plone.app.vocabularies'
-                 ],
+        "test": ["plone.app.testing", "ecreall.helpers.testing", "plone.app.vocabularies"],
     },
     entry_points="""
     # -*- Entry points: -*-

@@ -15,7 +15,7 @@ import os.path
 import z3c.table.table
 
 
-PMF = MessageFactory('plone')
+PMF = MessageFactory("plone")
 
 
 def get_value(item, attribute, default=None):
@@ -51,10 +51,10 @@ class DateTimeColumn(Column):
 
 def get_user_fullname(username):
     """Get fullname without using getMemberInfo that is slow slow slow..."""
-    storage = api.portal.get_tool('acl_users').mutable_properties._storage
+    storage = api.portal.get_tool("acl_users").mutable_properties._storage
     data = storage.get(username, None)
     if data is not None:
-        return safe_unicode(data.get('fullname', '') or username)
+        return safe_unicode(data.get("fullname", "") or username)
     else:
         return safe_unicode(username)
 
@@ -81,15 +81,14 @@ class PrincipalColumn(Column):
             #         principals.append(escape(group.getProperty('title', None)) or group.getId())
             principals.append(escape(get_user_fullname(principal_id)))
 
-        return u', '.join(principals)
+        return u", ".join(principals)
 
 
 class LinkColumn(z3c.table.column.LinkColumn):
-
     def getLinkURL(self, item):
         """Setup link url."""
         if self.linkName is not None:
-            return '%s/%s' % (item.getURL(), self.linkName)
+            return "%s/%s" % (item.getURL(), self.linkName)
         return item.getURL()
 
     def renderCell(self, item):
@@ -108,32 +107,29 @@ class TitleColumn(LinkColumn):
     weight = 10
 
     def getLinkContent(self, item):
-        title = get_value(item, 'Title')
+        title = get_value(item, "Title")
         return escape(safe_unicode(title))
 
 
 class IconColumn(LinkColumn):
-
     def getLinkContent(self, item):
         content = super(IconColumn, self).getLinkContent(item)  # escaped
-        return u"""<img title="%s" src="%s" />""" % (
-            content,
-            '%s/%s' % (self.table.portal_url, self.iconName))
+        return u"""<img title="%s" src="%s" />""" % (content, "%s/%s" % (self.table.portal_url, self.iconName))
 
 
 class DeleteColumn(IconColumn):
     header = u""
     weight = 9
     linkName = "delete_confirmation"
-    linkContent = PMF('Delete')
-    linkCSS = 'edm-delete-popup'
+    linkContent = PMF("Delete")
+    linkCSS = "edm-delete-popup"
     iconName = "delete_icon.png"
     linkContent = PMF(u"Delete")
 
     def actionAvailable(self, item):
         obj = item.getObject()
         sm = getSecurityManager()
-        return sm.checkPermission('Delete objects', obj)
+        return sm.checkPermission("Delete objects", obj)
 
     def renderCell(self, item):
         if not self.actionAvailable(item):
@@ -160,17 +156,17 @@ class ExternalEditColumn(IconColumn):
     def actionAvailable(self, item):
         obj = item.getObject()
         sm = getSecurityManager()
-        if not sm.checkPermission('Modify portal content', obj):
+        if not sm.checkPermission("Modify portal content", obj):
             return False
 
         if obj.file is None:
             return False
 
         ext = os.path.splitext(obj.file.filename)[-1].lower()
-        if ext in (u'.pdf', u'.jpg', '.jpeg'):
+        if ext in (u".pdf", u".jpg", ".jpeg"):
             return False
 
-        view = getMultiAdapter((obj, self.request), name='externalEditorEnabled')
+        view = getMultiAdapter((obj, self.request), name="externalEditorEnabled")
         if not view.available():
             return False
 
@@ -189,12 +185,12 @@ class EditColumn(IconColumn):
     linkName = "edit"
     iconName = "++resource++fade_edit.png"
     linkContent = PMF(u"Edit")
-    linkCSS = 'overlay-form-reload'
+    linkCSS = "overlay-form-reload"
 
     def actionAvailable(self, item):
         obj = item.getObject()
         sm = getSecurityManager()
-        return sm.checkPermission('Modify portal content', obj)
+        return sm.checkPermission("Modify portal content", obj)
 
     def renderCell(self, item):
         if not self.actionAvailable(item):
@@ -210,12 +206,11 @@ class StateColumn(Column):
     def renderCell(self, item):
         try:
             wtool = self.table.wtool
-            portal_type = get_value(item, 'portal_type')
-            review_state = get_value(item, 'review_state')
+            portal_type = get_value(item, "portal_type")
+            review_state = get_value(item, "review_state")
             if not review_state:
                 return u""
-            state_title = wtool.getTitleForStateOnType(review_state,
-                                                       portal_type)
+            state_title = wtool.getTitleForStateOnType(review_state, portal_type)
             return translate(PMF(state_title), context=self.request)
         except WorkflowException:
             return u""
@@ -227,5 +222,5 @@ class LabelColumn(Column):
     def renderCell(self, item):
         value = get_value(item, self.attribute)
         if value is None:
-            value = ''
+            value = ""
         return value

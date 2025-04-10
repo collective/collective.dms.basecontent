@@ -23,14 +23,16 @@ class IDmsDocument(model.Schema):
     treating_groups = LocalRolesField(
         title=_(u"Treating groups"),
         required=False,
-        value_type=schema.Choice(vocabulary=u'collective.dms.basecontent.treating_groups',)
+        value_type=schema.Choice(
+            vocabulary=u"collective.dms.basecontent.treating_groups",
+        ),
     )
     # form.widget(treating_groups=MultiSelect2FieldWidget)
 
     recipient_groups = LocalRolesField(
         title=_(u"Recipient groups"),
         required=False,
-        value_type=schema.Choice(vocabulary=u'collective.dms.basecontent.recipient_groups')
+        value_type=schema.Choice(vocabulary=u"collective.dms.basecontent.recipient_groups"),
     )
     form.widget(recipient_groups=MultiSelect2FieldWidget)
 
@@ -43,16 +45,17 @@ class IDmsDocument(model.Schema):
 
 class DmsDocument(Container):
     """DmsDocument"""
+
     implements(IDmsDocument)
     # disable local roles inheritance
     __ac_local_roles_block__ = True
 
     def get_mainfiles(self):
-        return object_values(self, ['DmsFile'])
+        return object_values(self, ["DmsFile"])
 
 
 class DmsDocumentSchemaPolicy(DexteritySchemaPolicy):
     """DmsDocument schema policy"""
 
     def bases(self, schemaName, tree):
-        return (IDmsDocument, )
+        return (IDmsDocument,)
