@@ -11,14 +11,26 @@ from plone.supermodel import model
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from zope.interface import implementer
+from zope.interface import provider
+from zope.schema.interfaces import IContextAwareDefaultFactory
 
 import six
+
+
+@provider(IContextAwareDefaultFactory)
+def titleDefaultValue(container):
+    annotations = IAnnotations(container)
+    if "higher_version" not in annotations:
+        version_number = 1
+    else:
+        version_number = annotations["higher_version"].value + 1
+    return six.text_type(version_number)
 
 
 class IDmsFile(model.Schema, IFile):
     """Schema for DmsFile"""
 
-    title = schema.TextLine(title=_(u"Version number"), required=False)
+    title = schema.TextLine(title=_(u"Version number"), required=False, defaultFactory=titleDefaultValue)
     form.mode(title="hidden")
 
     model.primary("file")
@@ -79,17 +91,6 @@ class DmsAppendixFileSchemaPolicy(DexteritySchemaPolicy):
 
     def bases(self, schemaName, tree):
         return (IDmsAppendixFile,)
-
-
-# TODO MIGRATION-PLONE6 default value
-def titleDefaultValue(data):
-    container = data.context
-    annotations = IAnnotations(container)
-    if "higher_version" not in annotations:
-        version_number = 1
-    else:
-        version_number = annotations["higher_version"].value + 1
-    return six.text_type(version_number)
 
 
 def update_higher_version(context, event):
