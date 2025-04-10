@@ -7,8 +7,8 @@
       i18n:domain="collective.dms.mailcontent">
 
   <metal:content-core define-macro="content-core"
-         tal:define="size python:here.getObjSize(here);
-                     content_type here/get_content_type|here/Format;"
+         tal:define="size python:view.get_obj_size(context);
+                     content_type python:view.get_content_type(context) or context.Format();"
          i18n:domain="collective.documentviewer">
   <tal:notshow tal:condition="not: view/enabled">
     <dl id="errorMsg" tal:condition="python: view.can_modify and view.settings.successfully_converted is False">
