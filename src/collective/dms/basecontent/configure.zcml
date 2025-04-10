@@ -13,7 +13,7 @@
   <include package="plone.app.relationfield" />
   <include package="plone.supermodel" />
   <include package="collective.z3cform.select2.widget" file="adapters.zcml" />
-  <!-- include package="collective.documentviewer" /-->
+  <include package="collective.documentviewer" />
   <include package="dexterity.localrolesfield" />
 
   <include package=".browser" />

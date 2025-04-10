@@ -63,7 +63,7 @@
         image="static/img/fade_edit.png"
         />
 
-    <!--browser:page
+    <browser:page
         for="collective.dms.basecontent.dmsdocument.IDmsDocument"
         name="view"
         class=".views.DmsDocumentView"
@@ -76,22 +76,23 @@
         name="dmsdocument-edit"
         class=".views.DmsDocumentEdit"
         permission="cmf.ModifyPortalContent"
-        /-->
-
-    <!-- browser:page
+        />
+    <!-- TODO : MIGRATION-PLONE6 -->
+    <browser:page
         name="versionviewer"
         for="plone.app.contenttypes.interfaces.IFile"
         class=".views.VersionViewerView"
         template="templates/versionviewer.pt"
         permission="zope2.View"
-        layer="collective.documentviewer.interfaces.ILayer" /-->
+        layer="collective.documentviewer.interfaces.ILayer" />
 
-    <!-- browser:page
+    <!-- TODO : MIGRATION-PLONE6 -->
+    <browser:page
         name="dvdata"
         for="plone.app.contenttypes.interfaces.IFile"
         class=".views.JSONVersionViewerView"
         permission="zope2.View"
-        layer="collective.documentviewer.interfaces.ILayer" /-->
+        layer="collective.documentviewer.interfaces.ILayer" />
 
       <!-- batch provider -->
     <adapter
@@ -130,14 +131,14 @@
         name="dms.edit"
         />
 
-    <adapter
+    <!-- adapter
         for="zope.interface.Interface
              zope.interface.Interface
              collective.dms.basecontent.browser.listing.VersionsTable"
         factory=".column.ExternalEditColumn"
         provides="z3c.table.interfaces.IColumn"
         name="dms.extedit"
-        />
+        /-->
 
     <adapter
         for="zope.interface.Interface

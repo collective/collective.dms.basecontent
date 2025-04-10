@@ -1,22 +1,23 @@
-# from collective.documentviewer.views import DocumentViewerView
+from collective.documentviewer.browser.views import DocumentViewerView
 from plone.dexterity.browser.edit import DefaultEditForm
 from plone.dexterity.browser.view import DefaultView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getMultiAdapter
 
 
-# import json
+import json
+
+# TODO : MIGRATION-PLONE6
+
+class VersionViewerView(DocumentViewerView):
+    pass
 
 
-# class VersionViewerView(DocumentViewerView):
-#     pass
-
-
-# class JSONVersionViewerView(DocumentViewerView):
-#     def index(self):
-#         self.request.response.setHeader("Content-Type", "application/json")
-#         return json.dumps(self.dv_data())
-
+class JSONVersionViewerView(DocumentViewerView):
+    def index(self):
+        self.request.response.setHeader("Content-Type", "application/json")
+        return json.dumps(self.dv_data())
+# END TODO
 
 class DmsDocumentView(DefaultView):
     def update(self):

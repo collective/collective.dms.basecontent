@@ -4,6 +4,7 @@
   <dependencies>
     <dependency>profile-plone.app.dexterity:default</dependency>
     <dependency>profile-plone.app.relationfield:default</dependency>
-    <!-- dependency>profile-collective.documentviewer:default</dependency-->
+    <!-- TODO : MIGRATION-PLONE6 -->
+    <dependency>profile-collective.documentviewer:default</dependency>
   </dependencies>
 </metadata>
