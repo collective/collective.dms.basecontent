@@ -10,12 +10,24 @@ from Products.CMFPlone.utils import safe_unicode
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from zope.interface import implementer
+from zope.interface import provider
+from zope.schema.interfaces import IContextAwareDefaultFactory
+
+
+@provider(IContextAwareDefaultFactory)
+def titleDefaultValue(container):
+    annotations = IAnnotations(container)
+    if "higher_version" not in annotations:
+        version_number = 1
+    else:
+        version_number = annotations["higher_version"].value + 1
+    return safe_unicode(version_number)
 
 
 class IDmsFile(IAnnex):
     """Schema for DmsFile"""
 
-    title = schema.TextLine(title=_(u"Version number"), required=False)
+    title = schema.TextLine(title=_(u"Version number"), required=False, defaultFactory=titleDefaultValue)
 
     form.mode(label="hidden")
     label = schema.TextLine(
@@ -68,16 +80,6 @@ class DmsAppendixFileSchemaPolicy(DexteritySchemaPolicy):
 
     def bases(self, schemaName, tree):
         return (IDmsAppendixFile,)
-
-
-def titleDefaultValue(data):
-    container = data.context
-    annotations = IAnnotations(container)
-    if "higher_version" not in annotations:
-        version_number = 1
-    else:
-        version_number = annotations["higher_version"].value + 1
-    return safe_unicode(version_number)
 
 
 def update_higher_version(context, event):
