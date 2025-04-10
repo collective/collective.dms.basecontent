@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from plone import api
+from Products.CMFPlone.utils import get_installer
 
 import logging
 
@@ -39,11 +40,11 @@ def v2(context):
 
 def v3(context):
     # uninstall chosen products
-    pqi = api.portal.get_tool("portal_quickinstaller")
-    inst_prd = [dic["id"] for dic in pqi.listInstalledProducts() if dic["status"] == "installed"]
+    portal = api.portal.get()
+    qi_tool = get_installer(portal, portal.REQUEST)
     for prd in ("collective.z3cform.chosen", "collective.js.chosen"):
-        if prd in inst_prd:
-            pqi.uninstallProducts([prd])
+        if qi_tool.is_product_installed(prd):
+            qi_tool.uninstall_product(prd)
     # install select2
     setup = api.portal.get_tool("portal_setup")
     setup.runAllImportStepsFromProfile("profile-collective.z3cform.select2:default", dependency_strategy="new")
