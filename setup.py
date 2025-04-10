@@ -43,7 +43,7 @@ setup(
     zip_safe=False,
     install_requires=[
         "z3c.table>=2.2",
-        # "collective.documentviewer",
+        "collective.documentviewer",
         "collective.externaleditor",
         "collective.iconifiedcategory",
         "collective.z3cform.select2",

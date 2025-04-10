@@ -35,11 +35,11 @@
 
 <body>
   <metal:desc fill-slot="content-description">
-    <div metal:use-macro="context/kss_generic_macros/macros/generic_description_view">
+    <!-- div metal:use-macro="context/kss_generic_macros/macros/generic_description_view" -->
         <metal:inside fill-slot="inside">
             <span tal:content="context/Description" class="dms-description">Description</span>
         </metal:inside>
-    </div>
+    <!-- /div -->
   </metal:desc>
 
 <metal:main fill-slot="content-core">
