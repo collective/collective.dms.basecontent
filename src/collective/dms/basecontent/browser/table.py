@@ -10,7 +10,7 @@ import datetime
 import z3c.table.table
 
 
-PMF = MessageFactory('plone')
+PMF = MessageFactory("plone")
 
 
 class TableViewlet(ViewletBase):
@@ -25,13 +25,13 @@ class TableViewlet(ViewletBase):
 
 
 class Table(z3c.table.table.Table):
-    cssClassEven = u'even'
-    cssClassOdd = u'odd'
-    cssClasses = {'table': 'listing nosort'}
+    cssClassEven = u"even"
+    cssClassOdd = u"odd"
+    cssClasses = {"table": "listing nosort"}
     sortOn = None
     batchSize = 10000  # not used
     startBatchingAt = 10000  # not used
-    batchProviderName = 'plonebatch'
+    batchProviderName = "plonebatch"
 
     def batchRows(self):
         # this is not self.rows that is batched, but self.values
@@ -39,18 +39,18 @@ class Table(z3c.table.table.Table):
 
     def updateBatch(self):
         if IBatch.providedBy(self.values):
-            self.batchProvider = getMultiAdapter((self.context,
-                self.request, self), IBatchProvider,
-                name=self.batchProviderName)
+            self.batchProvider = getMultiAdapter(
+                (self.context, self.request, self), IBatchProvider, name=self.batchProviderName
+            )
             self.batchProvider.update()
 
     @CachedProperty
     def translation_service(self):
-        return api.portal.get_tool('translation_service')
+        return api.portal.get_tool("translation_service")
 
     @CachedProperty
     def wtool(self):
-        return api.portal.get_tool('portal_workflow')
+        return api.portal.get_tool("portal_workflow")
 
     @CachedProperty
     def portal_url(self):
@@ -65,36 +65,37 @@ class Table(z3c.table.table.Table):
 
         # If date is a datetime object, isinstance(date, datetime.date)
         # returns True, so we use type here.
-        if type(date) == datetime.date:
-            date = date.strftime('%Y/%m/%d')
-        elif type(date) == datetime.datetime:
-            date = date.strftime('%Y/%m/%d %H:%M')
+        if type(date) is datetime.date:
+            date = date.strftime("%Y/%m/%d")
+        elif type(date) is datetime.datetime:
+            date = date.strftime("%Y/%m/%d %H:%M")
 
         return self.translation_service.ulocalized_time(
             date,
             long_format=long_format,
             time_only=time_only,
             context=self.context,
-            domain='plonelocales',
-            request=self.request)
+            domain="plonelocales",
+            request=self.request,
+        )
 
     def renderRow(self, row, cssClass=None):
         from .column import get_value
         from .column import StateColumn
+
         isSelected = self.isSelectedRow(row)
         if isSelected and self.cssClassSelected and cssClass:
-            cssClass = '%s %s' % (self.cssClassSelected, cssClass)
+            cssClass = "%s %s" % (self.cssClassSelected, cssClass)
         elif isSelected and self.cssClassSelected:
             cssClass = self.cssClassSelected
-        cells = [self.renderCell(item, col, colspan)
-                 for item, col, colspan in row]
+        cells = [self.renderCell(item, col, colspan) for item, col, colspan in row]
 
         state_column = [x for x in row if isinstance(x[1], StateColumn)]
         if state_column:
             state_column = state_column[0]
-            state_value = get_value(state_column[0], 'review_state')
+            state_value = get_value(state_column[0], "review_state")
             if state_value:
-                cssClass += ' row-state-%s' % state_value
+                cssClass += " row-state-%s" % state_value
 
-        cssClass = self.getCSSClass('tr', cssClass)
-        return u'\n    <tr%s>%s\n    </tr>' % (cssClass, u''.join(cells))
+        cssClass = self.getCSSClass("tr", cssClass)
+        return u"\n    <tr%s>%s\n    </tr>" % (cssClass, u"".join(cells))

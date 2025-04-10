@@ -3,35 +3,35 @@ from BTrees.Length import Length
 from collective.dms.basecontent import _
 from plone.app.contenttypes.interfaces import IFile
 from plone.autoform import directives as form
+from plone.base.utils import base_hasattr
 from plone.dexterity.content import Item
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.namedfile.field import NamedBlobFile
 from plone.supermodel import model
-from Products.CMFPlone.utils import base_hasattr
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from zope.interface import implementer
+
 import six
 
 
 class IDmsFile(model.Schema, IFile):
     """Schema for DmsFile"""
-    title = schema.TextLine(
-        title=_(u'Version number'),
-        required=False
-    )
-    form.mode(title='hidden')
 
-    model.primary('file')
+    title = schema.TextLine(title=_(u"Version number"), required=False)
+    form.mode(title="hidden")
+
+    model.primary("file")
     file = NamedBlobFile(
         title=_(u"File"),
         required=True,
     )
 
     label = schema.TextLine(
-        title=_(u'Label'),
+        title=_(u"Label"),
         required=False,
     )
+
 
 @implementer(IDmsFile)
 class DmsFile(Item):
@@ -44,7 +44,7 @@ class DmsFile(Item):
     def Title(self):
         if self.incomingmail:
             return _(u"Incoming mail")
-        elif base_hasattr(self, 'signed') and self.signed:
+        elif base_hasattr(self, "signed") and self.signed:
             return _(u"Signed version")
         else:
             return self.title
@@ -54,20 +54,23 @@ class DmsFileSchemaPolicy(DexteritySchemaPolicy):
     """Schema Policy for DmsFile"""
 
     def bases(self, schemaName, tree):
-        return (IDmsFile, )
+        return (IDmsFile,)
 
 
 class IDmsAppendixFile(model.Schema, IFile):
     """Schema for DmsAppendixFile"""
-    model.primary('file')
+
+    model.primary("file")
     file = NamedBlobFile(
         title=_(u"File"),
         required=True,
     )
 
+
 @implementer(IDmsAppendixFile)
 class DmsAppendixFile(Item):
     """DmsAppendixFile"""
+
     __ac_local_roles_block__ = True
 
 
@@ -75,16 +78,17 @@ class DmsAppendixFileSchemaPolicy(DexteritySchemaPolicy):
     """Schema Policy for DmsAppendixFile"""
 
     def bases(self, schemaName, tree):
-        return (IDmsAppendixFile, )
+        return (IDmsAppendixFile,)
 
 
+# TODO MIGRATION-PLONE6 default value
 def titleDefaultValue(data):
     container = data.context
     annotations = IAnnotations(container)
-    if 'higher_version' not in annotations:
+    if "higher_version" not in annotations:
         version_number = 1
     else:
-        version_number = annotations['higher_version'].value + 1
+        version_number = annotations["higher_version"].value + 1
     return six.text_type(version_number)
 
 
@@ -94,6 +98,6 @@ def update_higher_version(context, event):
     data transfer: ✅"""
     container = context.getParentNode()
     annotations = IAnnotations(container)
-    if 'higher_version' not in annotations:
-        annotations['higher_version'] = Length()
-    annotations['higher_version'].change(1)
+    if "higher_version" not in annotations:
+        annotations["higher_version"] = Length()
+    annotations["higher_version"].change(1)

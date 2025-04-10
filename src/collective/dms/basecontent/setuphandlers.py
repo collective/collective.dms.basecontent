@@ -9,11 +9,10 @@ def setup_documentviewer(portal):
 
 
 def importFinalSteps(context):
-    """Import all final steps.
-    """
-    marker = context.readDataFile('collective_dms_basecontent_marker.txt')
+    """Import all final steps."""
+    marker = context.readDataFile("collective_dms_basecontent_marker.txt")
     if marker is None:
         return
 
-    site = context.getSite()
+    # site = context.getSite()
     # setup_documentviewer(site)
