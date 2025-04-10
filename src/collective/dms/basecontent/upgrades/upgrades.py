@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from plone import api
-from Products.CMFPlone.utils import get_installer
+from plone.base.utils import get_installer
 
 import logging
 
@@ -26,7 +26,7 @@ def v2(context):
                         cleaned_local_roles.remove(role)
                     except ValueError:
                         # if a role to remove was already removed (???) pass
-                        logger.warn(
+                        logger.warning(
                             "Failed to remove role '%s' for principal '%s' on object '%s'"
                             % (role, local_principal, "/".join(obj.getPhysicalPath()))
                         )

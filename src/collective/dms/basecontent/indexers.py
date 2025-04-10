@@ -1,8 +1,8 @@
 from collective.dms.basecontent.dmsdocument import IDmsDocument
 from OFS.interfaces import IItem
+from plone.base.utils import base_hasattr
 from plone.indexer import indexer
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import base_hasattr
 from ZODB.POSException import ConflictError
 
 import six
