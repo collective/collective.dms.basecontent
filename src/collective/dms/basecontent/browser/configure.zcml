@@ -63,7 +63,7 @@
         image="static/img/fade_edit.png"
         />
 
-    <browser:page
+    <!--browser:page
         for="collective.dms.basecontent.dmsdocument.IDmsDocument"
         name="view"
         class=".views.DmsDocumentView"
@@ -76,7 +76,7 @@
         name="dmsdocument-edit"
         class=".views.DmsDocumentEdit"
         permission="cmf.ModifyPortalContent"
-        />
+        /-->
 
     <!-- browser:page
         name="versionviewer"
