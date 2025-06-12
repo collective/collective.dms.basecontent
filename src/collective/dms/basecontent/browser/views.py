@@ -5,8 +5,6 @@ from plone.dexterity.browser.view import DefaultView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getMultiAdapter
 
-import json
-
 
 class VersionViewerView(DocumentViewerView):
     def get_obj_size(self, context):
@@ -22,7 +20,7 @@ class VersionViewerView(DocumentViewerView):
 class JSONVersionViewerView(DocumentViewerView):
     def index(self):
         self.request.response.setHeader("Content-Type", "application/json")
-        return json.dumps(self.dv_data())
+        return self.pattern_options()
 
 
 class DmsDocumentView(DefaultView):
