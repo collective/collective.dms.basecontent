@@ -14,6 +14,13 @@
 <script type="text/javascript">
 $(document).ready(function(){
     var initial_timeout = null;
+    documentviewer = document.querySelector('.pat2-documentviewer');
+    if (documentviewer) {
+      options = JSON.parse(documentviewer.getAttribute('data-pat-documentviewer'));
+      console.log('FIRST with options:', options);
+      options.container = documentviewer;
+      DV.load(options.data, options);
+    }
 
     $('.version-link').closest('tr').bind('select-version', function() {
       /* a version has been selected, disable initial timeout */
@@ -26,9 +33,12 @@ $(document).ready(function(){
         return;
       }
       var url = trigger.attr('href') + '/@@dvdata';
-      $.getJSON(url, function(data) {
-        window.documentData = data;
-        window.initializeDV();
+      $.getJSON(url, function(options) {
+        console.log('Loading document viewer with options:', options);
+        documentviewer = document.querySelector('.pat2-documentviewer');
+        documentviewer.setAttribute('data-pat-documentviewer', JSON.stringify(options));
+        options.container = documentviewer;
+        DV.load(options.data, options);
         $('table.dv').find('tr').removeClass('selected');
         trigger.closest('tr').addClass('selected');
       });
@@ -40,12 +50,10 @@ $(document).ready(function(){
       $(".version-link:first").closest('tr').trigger('select-version');
     }
 
-    if (window.documentData && window.documentData.pages == null) {
+    if (documentviewer == null) {
       // the version was just added, update DV after 6s
       initial_timeout = setTimeout(async_load_dv, 6000);
     } else {
-      // window.documentData is already filled, we don't need to call @@dvdata
-      // So we mark it as selected before triggering the select-version event.
       $(".version-link:first").closest('tr').addClass('selected').trigger('select-version');
     }
 
