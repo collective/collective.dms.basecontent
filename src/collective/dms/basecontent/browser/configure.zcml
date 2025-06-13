@@ -130,7 +130,7 @@
         name="dms.edit"
         />
 
-    <!--adapter
+    <!--adapter  NO MORE AVAILABLE IN PLONE 6
         for="zope.interface.Interface
              zope.interface.Interface
              collective.dms.basecontent.browser.listing.VersionsTable"

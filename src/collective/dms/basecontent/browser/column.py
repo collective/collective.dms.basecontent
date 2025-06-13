@@ -112,9 +112,14 @@ class TitleColumn(LinkColumn):
 
 
 class IconColumn(LinkColumn):
+    def __init__(self, *args, **kwargs):
+        super(IconColumn, self).__init__(*args, **kwargs)
+        portal = api.portal.get()
+        self.icons = portal.restrictedTraverse("@@iconresolver")
+
     def getLinkContent(self, item):
         content = super(IconColumn, self).getLinkContent(item)  # escaped
-        return u"""<img title="%s" src="%s" />""" % (content, "%s/%s" % (self.table.portal_url, self.iconName))
+        return u"""<img title="%s" src="%s" />""" % (content, self.icons.url(self.iconName))
 
 
 class DeleteColumn(IconColumn):
@@ -123,7 +128,7 @@ class DeleteColumn(IconColumn):
     linkName = "delete_confirmation"
     linkContent = PMF("Delete")
     linkCSS = "edm-delete-popup"
-    iconName = "delete_icon.png"
+    iconName = "plone-delete"
     linkContent = PMF(u"Delete")
 
     def actionAvailable(self, item):
@@ -142,7 +147,7 @@ class DownloadColumn(IconColumn):
     header = u""
     weight = 1
     linkName = "@@download"
-    iconName = "download_icon.png"
+    iconName = "download"
     linkContent = _(u"Download file")
 
 
@@ -183,7 +188,8 @@ class EditColumn(IconColumn):
     header = u""
     weight = 2
     linkName = "edit"
-    iconName = "++resource++fade_edit.png"
+    # iconName = "plone-edit"
+    iconName = "toolbar-action/edit"
     linkContent = PMF(u"Edit")
     linkCSS = "overlay-form-reload"
 
