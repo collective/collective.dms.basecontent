@@ -77,7 +77,7 @@
         class=".views.DmsDocumentEdit"
         permission="cmf.ModifyPortalContent"
         />
-    <!-- TODO : MIGRATION-PLONE6 -->
+
     <browser:page
         name="versionviewer"
         for="plone.app.contenttypes.interfaces.IFile"
@@ -86,9 +86,8 @@
         permission="zope2.View"
         layer="collective.documentviewer.interfaces.ILayer" />
 
-    <!-- TODO : MIGRATION-PLONE6 -->
     <browser:page
-        name="dvdata"
+        name="pattern-options"
         for="plone.app.contenttypes.interfaces.IFile"
         class=".views.JSONVersionViewerView"
         permission="zope2.View"
@@ -131,7 +130,7 @@
         name="dms.edit"
         />
 
-    <!-- adapter
+    <!--adapter
         for="zope.interface.Interface
              zope.interface.Interface
              collective.dms.basecontent.browser.listing.VersionsTable"
