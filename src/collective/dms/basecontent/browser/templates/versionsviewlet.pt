@@ -26,7 +26,7 @@ $(document).ready(function(){
         // the version is already selected, no need to reload it
         return;
       }
-      var url = trigger.attr('href') + '/@@dvdata';
+      var url = trigger.attr('href') + '/@@pattern-options';
       $.getJSON(url, function(options) {
         documentviewer = document.querySelector('div.pat-documentviewer.DV-container');
         documentviewer.setAttribute('data-pat-documentviewer', JSON.stringify(options));

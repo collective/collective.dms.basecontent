@@ -1,6 +1,7 @@
-def setup_documentviewer(portal):
-    from collective.documentviewer.settings import GlobalSettings
+from collective.documentviewer.settings import GlobalSettings
 
+
+def setup_documentviewer(portal):
     dv_settings = GlobalSettings(portal)
     dv_settings.auto_layout_file_types = ("pdf", "ppt", "word", "rft")
     dv_settings.auto_convert = True
