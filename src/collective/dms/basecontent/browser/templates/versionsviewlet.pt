@@ -14,13 +14,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
     var initial_timeout = null;
-    documentviewer = document.querySelector('.pat2-documentviewer');
-    if (documentviewer) {
-      options = JSON.parse(documentviewer.getAttribute('data-pat-documentviewer'));
-      console.log('FIRST with options:', options);
-      options.container = documentviewer;
-      DV.load(options.data, options);
-    }
+    documentviewer = document.querySelector('div.pat-documentviewer.DV-container');
 
     $('.version-link').closest('tr').bind('select-version', function() {
       /* a version has been selected, disable initial timeout */
@@ -34,10 +28,9 @@ $(document).ready(function(){
       }
       var url = trigger.attr('href') + '/@@dvdata';
       $.getJSON(url, function(options) {
-        console.log('Loading document viewer with options:', options);
-        documentviewer = document.querySelector('.pat2-documentviewer');
+        documentviewer = document.querySelector('div.pat-documentviewer.DV-container');
         documentviewer.setAttribute('data-pat-documentviewer', JSON.stringify(options));
-        options.container = documentviewer;
+        options.container = 'div.pat-documentviewer.DV-container';
         DV.load(options.data, options);
         $('table.dv').find('tr').removeClass('selected');
         trigger.closest('tr').addClass('selected');
