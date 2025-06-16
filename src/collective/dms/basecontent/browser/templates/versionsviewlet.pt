@@ -2,13 +2,19 @@
 <fieldset>
   <legend i18n:translate=""
     tal:content="view/label">label</legend>
-    <tal:listing define="results view/table/values">
+    <tal:listing define="results view/table/values;">
       <tal:b condition="results">
         <table tal:replace="structure view/table/render" />
         <div tal:define="version python:results[0].getObject()"
              tal:replace="structure version/@@versionviewer" />
       </tal:b>
-      <tal:b condition="not:results" replace="view/noresult_message" />
+      <tal:b condition="not:results">
+        <span tal:replace="view/noresult_message" />
+        <div tal:condition="first_appendix"
+             tal:define="first_appendix view/first_appendix;
+                         version python:first_appendix and first_appendix.getObject();"
+             tal:replace="structure version/@@versionviewer" />
+      </tal:b>
     </tal:listing>
 </fieldset>
 <script type="text/javascript">
