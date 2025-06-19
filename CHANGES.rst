@@ -6,6 +6,9 @@ Changelog
 
 - Migrated to Plone 6.1.
   [sgeulette, boulch]
+- Replaced RelatedDocs field widget by ContentBrowserWidgetFieldWidget.
+  [chris-adam]
+
 
 1.13 (2024-03-01)
 -----------------

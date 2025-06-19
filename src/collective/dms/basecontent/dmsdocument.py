@@ -1,12 +1,14 @@
 from collective.dms.basecontent import _
-from collective.dms.basecontent.relateddocs import RelatedDocs
 from collective.z3cform.select2.widget.widget import MultiSelect2FieldWidget
 from dexterity.localrolesfield.field import LocalRolesField
 from imio.helpers.content import object_values
+from plone.app.vocabularies.catalog import CatalogSource
 from plone.autoform import directives as form
 from plone.dexterity.content import Container
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.supermodel import model
+from z3c.relationfield.schema import RelationChoice
+from z3c.relationfield.schema import RelationList
 from zope import schema
 from zope.interface import implementer
 
@@ -35,10 +37,10 @@ class IDmsDocument(model.Schema):
     )
     form.widget(recipient_groups=MultiSelect2FieldWidget)
 
-    related_docs = RelatedDocs(
+    related_docs = RelationList(
         title=_(u"Related documents"),
+        value_type=RelationChoice(title=u"", source=CatalogSource(portal_type="dmsdocument")),
         required=False,
-        display_backrefs=True,
     )
 
 

@@ -19,8 +19,6 @@
   <include package=".browser" />
   <include file="permissions.zcml" />
 
-  <adapter factory=".relateddocs.RelatedDocsFieldWidget" />
-
   <genericsetup:registerProfile
       name="default"
       title="collective.dms.basecontent"
