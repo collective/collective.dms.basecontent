@@ -50,7 +50,6 @@ setup(
         "plone.api",
         "plone.app.dexterity",
         "plone.namedfile",
-        "z3c.blobfile",
         "plone.app.contenttypes",
         "plone.app.relationfield",
         "plone.formwidget.contenttree",
