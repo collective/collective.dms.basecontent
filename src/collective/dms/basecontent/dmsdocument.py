@@ -2,7 +2,6 @@ from collective.dms.basecontent import _
 from collective.z3cform.select2.widget.widget import MultiSelect2FieldWidget
 from dexterity.localrolesfield.field import LocalRolesField
 from imio.helpers.content import object_values
-from plone.app.vocabularies.catalog import CatalogSource
 from plone.autoform import directives as form
 from plone.dexterity.content import Container
 from plone.dexterity.schema import DexteritySchemaPolicy
@@ -39,8 +38,10 @@ class IDmsDocument(model.Schema):
 
     related_docs = RelationList(
         title=_(u"Related documents"),
-        value_type=RelationChoice(title=u"", source=CatalogSource(portal_type="dmsdocument")),
+        # value_type=RelationChoice(title=u"", source=CatalogSource(portal_type="dmsdocument")),
+        value_type=RelationChoice(title=u"", vocabulary="plone.app.vocabularies.Catalog"),
         required=False,
+        # display_backrefs=True, # TODO MIGRATION-PLONE6 option not available in widget
     )
 
 
