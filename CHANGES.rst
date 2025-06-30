@@ -4,8 +4,8 @@ Changelog
 1.14 (unreleased)
 -----------------
 
-- Nothing changed yet.
-
+- Migrated to Plone 6.1.
+  [sgeulette, boulch]
 
 1.13 (2024-03-01)
 -----------------
