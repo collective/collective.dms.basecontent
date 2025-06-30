@@ -4,8 +4,8 @@ Changelog
 2.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Migrated to Plone 6.1.
+  [sgeulette, boulch]
 
 2.0.3 (2026-03-26)
 ------------------
