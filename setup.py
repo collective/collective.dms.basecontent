@@ -59,7 +59,6 @@ setup(
         "plone.formwidget.contenttree",
         "plone.namedfile",
         "setuptools",
-        "z3c.blobfile",
     ],
     extras_require={
         "test": ["plone.app.testing", "ecreall.helpers.testing", "plone.app.vocabularies"],
