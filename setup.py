@@ -52,7 +52,6 @@ setup(
         "plone.namedfile",
         "plone.app.contenttypes",
         "plone.app.relationfield",
-        "plone.formwidget.contenttree",
         "collective.z3cform.select2",
         "z3c.table>=2.2",
     ],
