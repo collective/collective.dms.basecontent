@@ -56,7 +56,6 @@ setup(
         "plone.app.contenttypes",
         "plone.app.dexterity",
         "plone.app.relationfield",
-        "plone.formwidget.contenttree",
         "plone.namedfile",
         "setuptools",
     ],
