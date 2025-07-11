@@ -149,7 +149,7 @@ class DownloadColumn(IconColumn):
 class ExternalEditColumn(IconColumn):
     header = u""
     weight = 3
-    linkName = "@@external_edit"
+    linkName = "@@collabora-edit"
     iconName = "extedit_icon.png"
     linkContent = PMF(u"Edit with external application")
 
