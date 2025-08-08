@@ -47,3 +47,9 @@ def v3(context):
     # install select2
     setup = api.portal.get_tool("portal_setup")
     setup.runAllImportStepsFromProfile("profile-collective.z3cform.select2:default", dependency_strategy="new")
+
+
+def v4(context):
+    # install imio.annex
+    setup = api.portal.get_tool("portal_setup")
+    setup.runAllImportStepsFromProfile("profile-imio.annex:default", dependency_strategy="new")

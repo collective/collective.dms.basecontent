@@ -46,6 +46,7 @@ setup(
         "collective.documentviewer",
         "dexterity.localrolesfield",
         "future",
+        "imio.annex",
         "imio.helpers>=0.42",
         "plone.api",
         "plone.app.dexterity",
