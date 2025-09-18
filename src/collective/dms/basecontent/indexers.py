@@ -1,4 +1,5 @@
 from collective.dms.basecontent.dmsdocument import IDmsDocument
+from imio.annex.content.annex import IAnnex
 from OFS.interfaces import IItem
 from plone.indexer import indexer
 from Products.CMFCore.utils import getToolByName
@@ -51,3 +52,27 @@ def recipient_groups_indexer(obj):
     # skip acquisition for contained elements. None is considered as ()
     if base_hasattr(obj, "recipient_groups"):
         return obj.recipient_groups
+
+
+@indexer(IAnnex)
+def to_print_indexer(obj):
+    # skip acquisition for contained elements. None is considered as ()
+    if base_hasattr(obj, "to_print"):
+        return obj.to_print
+    return False
+
+
+@indexer(IAnnex)
+def approved_indexer(obj):
+    # skip acquisition for contained elements. None is considered as ()
+    if base_hasattr(obj, "approved"):
+        return obj.approved
+    return False
+
+
+@indexer(IAnnex)
+def to_sign_indexer(obj):
+    # skip acquisition for contained elements. None is considered as ()
+    if base_hasattr(obj, "to_sign"):
+        return obj.to_sign
+    return False
