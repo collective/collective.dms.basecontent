@@ -24,7 +24,7 @@ class BaseTable(Table):
 
 class VersionsTable(BaseTable):
 
-    cssClasses = {"table": "listing nosort dv"}
+    cssClasses = {"table": "listing nosort dv iconified-listing"}
 
 
 class DmsAppendixTable(VersionsTable):
