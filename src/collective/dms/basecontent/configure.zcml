@@ -69,6 +69,21 @@
         />
 
     <adapter
+        name="to_print"
+        factory=".indexers.to_print_indexer"
+        />
+
+    <adapter
+        name="approved"
+        factory=".indexers.approved_indexer"
+        />
+
+    <adapter
+        name="to_sign"
+        factory=".indexers.to_sign_indexer"
+        />
+
+    <adapter
         name="SearchableText"
         factory=".indexers.document_dynamic_searchable_text_indexer"
         />

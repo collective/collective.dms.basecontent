@@ -3,9 +3,25 @@
     <index name="treating_groups" meta_type="KeywordIndex">
         <indexed_attr value="treating_groups"/>
     </index>
+
     <column value="treating_groups"/>
     <index name="recipient_groups" meta_type="KeywordIndex">
         <indexed_attr value="recipient_groups"/>
     </index>
     <column value="recipient_groups"/>
+
+    <index name="approved" meta_type="BooleanIndex">
+        <indexed_attr value="approved"/>
+    </index>
+    <column value="approved"/>
+
+    <index name="to_print" meta_type="BooleanIndex">
+        <indexed_attr value="to_print"/>
+    </index>
+    <column value="to_print"/>
+
+    <index name="to_sign" meta_type="BooleanIndex">
+        <indexed_attr value="to_sign"/>
+    </index>
+    <column value="to_sign"/>
 </object>

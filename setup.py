@@ -44,6 +44,7 @@ setup(
     install_requires=[
         "setuptools",
         "collective.documentviewer",
+        "collective.iconifiedcategory",
         "dexterity.localrolesfield",
         "future",
         "imio.helpers>=0.42",
@@ -58,6 +59,7 @@ setup(
         "plone.principalsource",
         "collective.z3cform.select2",
         "z3c.table>=2.2",
+        "immio.annex",
     ],
     extras_require={
         "test": ["plone.app.testing", "ecreall.helpers.testing", "plone.app.vocabularies"],
