@@ -74,6 +74,11 @@
         />
 
     <adapter
+        name="to_approve"
+        factory=".indexers.to_approve_indexer"
+        />
+
+    <adapter
         name="approved"
         factory=".indexers.approved_indexer"
         />

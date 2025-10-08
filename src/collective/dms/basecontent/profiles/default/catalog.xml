@@ -10,6 +10,11 @@
     </index>
     <column value="recipient_groups"/>
 
+    <index name="to_approve" meta_type="BooleanIndex">
+        <indexed_attr value="to_approve"/>
+    </index>
+    <column value="to_approve"/>
+
     <index name="approved" meta_type="BooleanIndex">
         <indexed_attr value="approved"/>
     </index>

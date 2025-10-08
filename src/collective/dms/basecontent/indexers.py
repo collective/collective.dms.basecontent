@@ -71,6 +71,14 @@ def approved_indexer(obj):
 
 
 @indexer(IAnnex)
+def to_approve_indexer(obj):
+    # skip acquisition for contained elements. None is considered as ()
+    if base_hasattr(obj, "to_approve"):
+        return obj.to_approve
+    return False
+
+
+@indexer(IAnnex)
 def to_sign_indexer(obj):
     # skip acquisition for contained elements. None is considered as ()
     if base_hasattr(obj, "to_sign"):
