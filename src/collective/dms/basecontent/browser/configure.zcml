@@ -116,6 +116,33 @@
         for="zope.interface.Interface
              zope.interface.Interface
              collective.dms.basecontent.browser.listing.VersionsTable"
+        provides="z3c.table.interfaces.IColumn"
+        factory="collective.iconifiedcategory.browser.tabview.ApprovedColumn"
+        name="approved-column"
+        />
+
+    <adapter
+        for="zope.interface.Interface
+             zope.interface.Interface
+             collective.dms.basecontent.browser.listing.VersionsTable"
+        factory="collective.iconifiedcategory.browser.tabview.SignedColumn"
+        provides="z3c.table.interfaces.IColumn"
+        name="signed-column"
+        />
+
+    <adapter
+        for="zope.interface.Interface
+             zope.interface.Interface
+             collective.dms.basecontent.browser.listing.VersionsTable"
+        factory="collective.iconifiedcategory.browser.tabview.PrintColumn"
+        provides="z3c.table.interfaces.IColumn"
+        name="print-column"
+        />
+
+    <adapter
+        for="zope.interface.Interface
+             zope.interface.Interface
+             collective.dms.basecontent.browser.listing.VersionsTable"
         factory=".column.DownloadColumn"
         provides="z3c.table.interfaces.IColumn"
         name="dms.download"
