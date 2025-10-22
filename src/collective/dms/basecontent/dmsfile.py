@@ -19,6 +19,7 @@ class IDmsFile(IAnnex):
 
     form.mode(title="hidden")
 
+    form.order_before(label='title')
     label = schema.TextLine(
         title=_(u"Label"),
         required=False,
@@ -51,6 +52,7 @@ class DmsFileSchemaPolicy(DexteritySchemaPolicy):
 
 class IDmsAppendixFile(IAnnex):
     """Schema for DmsAppendixFile"""
+    form.mode(title="hidden")
 
 
 class DmsAppendixFile(Annex):
