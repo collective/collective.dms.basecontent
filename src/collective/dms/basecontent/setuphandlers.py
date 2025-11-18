@@ -8,6 +8,29 @@ def setup_documentviewer(portal):
     dv_settings.show_search = False
 
 
+def setup_externaleditor(portal):
+    from plone import api
+
+    enabled_types = api.portal.get_registry_record(
+        'externaleditor.externaleditor_enabled_types',
+        default=[u'File', u'Image'],
+    )
+
+    if u'dmsappendixfile' not in enabled_types:
+        enabled_types.append(u'dmsappendixfile')
+        api.portal.set_registry_record(
+            'externaleditor.externaleditor_enabled_types',
+            enabled_types,
+        )
+
+    if u'dmsmainfile' not in enabled_types:
+        enabled_types.append(u'dmsmainfile')
+        api.portal.set_registry_record(
+            'externaleditor.externaleditor_enabled_types',
+            enabled_types,
+        )
+
+
 def importFinalSteps(context):
     """Import all final steps."""
     marker = context.readDataFile("collective_dms_basecontent_marker.txt")
@@ -16,3 +39,4 @@ def importFinalSteps(context):
 
     site = context.getSite()
     setup_documentviewer(site)
+    setup_externaleditor(site)

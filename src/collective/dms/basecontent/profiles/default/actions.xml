@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<object name="portal_actions" meta_type="Plone Actions Tool"
+ xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <object name="object_buttons" meta_type="CMF Action Category">
+
+  <object name="external_edit" meta_type="CMF Action" i18n:domain="collective.externaleditor">
+   <property name="title"
+       i18n:translate="">Edit with external application</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:$object_url/@@external_edit</property>
+   <property name="icon_expr">string:$portal_url/extedit_icon.png</property>
+   <property name="available_expr">object/externalEditorEnabled</property>
+   <property name="permissions">
+    <element value="Modify portal content"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+
+  <object name="download" meta_type="CMF Action" i18n:domain="collective.dms.basecontent">
+   <property name="title"
+       i18n:translate="">Download file</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">string:$object_url/@@download</property>
+   <property name="icon_expr">string:$portal_url/download_icon.png</property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+
+ </object>
+</object>

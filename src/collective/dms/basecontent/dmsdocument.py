@@ -9,7 +9,6 @@ from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.supermodel import model
 from zope import schema
 from zope.interface import implements
-from zope.schema.fieldproperty import FieldProperty
 
 
 class IDmsDocument(model.Schema):

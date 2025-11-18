@@ -93,7 +93,16 @@
         permission="zope2.View"
         layer="collective.documentviewer.interfaces.ILayer" />
 
-      <!-- batch provider -->
+    <browser:page
+        name="externalEditorEnabled"
+        for="plone.app.contenttypes.interfaces.IFile"
+        class=".views.ExternalEditorEnabledView"
+        allowed_attributes="available"
+        permission="zope2.View"
+        layer="collective.documentviewer.interfaces.ILayer"
+        />
+
+    <!-- batch provider -->
     <adapter
         name="plonebatch"
         factory="collective.dms.basecontent.browser.batch.PloneBatchProvider"
@@ -103,67 +112,15 @@
         />
 
     <!-- columns -->
-    <adapter
-        for="zope.interface.Interface
-             zope.interface.Interface
-             collective.dms.basecontent.browser.listing.VersionsTable"
-        factory=".listing.VersionsTitleColumn"
-        provides="z3c.table.interfaces.IColumn"
-        name="dms.title"
-        />
 
-    <adapter
-        for="zope.interface.Interface
-             zope.interface.Interface
-             collective.dms.basecontent.browser.listing.VersionsTable"
-        factory=".column.DownloadColumn"
-        provides="z3c.table.interfaces.IColumn"
-        name="dms.download"
-        />
-
-    <adapter
-        for="zope.interface.Interface
-             zope.interface.Interface
-             collective.dms.basecontent.browser.listing.VersionsTable"
-        factory=".column.EditColumn"
-        provides="z3c.table.interfaces.IColumn"
-        name="dms.edit"
-        />
-
-    <adapter
-        for="zope.interface.Interface
-             zope.interface.Interface
-             collective.dms.basecontent.browser.listing.VersionsTable"
-        factory=".column.ExternalEditColumn"
-        provides="z3c.table.interfaces.IColumn"
-        name="dms.extedit"
-        />
-
-    <adapter
-        for="zope.interface.Interface
-             zope.interface.Interface
-             collective.dms.basecontent.browser.listing.VersionsTable"
-        factory=".column.DeleteColumn"
-        provides="z3c.table.interfaces.IColumn"
-        name="dms.delete"
-        />
-
-    <adapter
-        for="zope.interface.Interface
-             zope.interface.Interface
-             collective.dms.basecontent.browser.listing.VersionsTable"
-        factory=".listing.AuthorColumn"
-        provides="z3c.table.interfaces.IColumn"
-        name="dms.author"
-        />
-
+    <!-- This overrides the last modification column from collective.iconifiedcategory -->
     <adapter
         for="zope.interface.Interface
              zope.interface.Interface
              collective.dms.basecontent.browser.listing.VersionsTable"
         factory=".listing.UpdateColumn"
         provides="z3c.table.interfaces.IColumn"
-        name="dms.update"
+        name="last-modification-column"
         />
 
     <adapter
@@ -184,4 +141,41 @@
         name="dms.label"
         />
 
+    <unconfigure package="collective.iconifiedcategory">
+        <adapter
+            name="category-column"
+            for="zope.interface.Interface
+                zope.interface.Interface
+                collective.iconifiedcategory.interfaces.ICategorizedTable"
+            provides="z3c.table.interfaces.IColumn"
+            factory="collective.iconifiedcategory.browser.tabview.CategoryColumn"
+            />
+
+        <adapter
+            name="creation-date-column"
+            for="zope.interface.Interface
+                zope.interface.Interface
+                collective.iconifiedcategory.interfaces.ICategorizedTable"
+            provides="z3c.table.interfaces.IColumn"
+            factory="collective.iconifiedcategory.browser.tabview.CreationDateColumn"
+            />
+    </unconfigure>
+
+    <!-- ACTIONSPANEL -->
+    <configure package="imio.actionspanel">
+        <browser:page
+            for="collective.dms.basecontent.dmsfile.IDmsFile"
+            name="actions_panel"
+            class="collective.dms.basecontent.browser.actionspanel.DmsFileActionsPanelView"
+            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+            template="browser/actions_panel.pt"
+            permission="zope2.View" />
+        <browser:page
+            for="collective.dms.basecontent.dmsfile.IDmsAppendixFile"
+            name="actions_panel"
+            class="collective.dms.basecontent.browser.actionspanel.DmsFileActionsPanelView"
+            layer="imio.actionspanel.interfaces.IActionsPanelLayer"
+            template="browser/actions_panel.pt"
+            permission="zope2.View" />
+    </configure>
 </configure>

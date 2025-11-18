@@ -89,6 +89,11 @@
         factory="collective.dms.basecontent.source.RecipientGroupsVocabulary"
         />
 
+    <utility
+        provides="zope.schema.interfaces.IVocabularyFactory"
+        name="collective.iconifiedcategory.categories"
+        factory="collective.dms.basecontent.source.CategoryVocabulary" />
+
     <!--various-->
     <subscriber
         for="collective.dms.basecontent.dmsfile.IDmsFile
