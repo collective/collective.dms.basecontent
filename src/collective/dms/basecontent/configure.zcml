@@ -19,6 +19,9 @@
   <include package="collective.z3cform.select2" />
   <include package="collective.documentviewer" />
   <include package="dexterity.localrolesfield" />
+  <include package="collective.externaleditor" />
+  <include package="collective.iconifiedcategory" />
+  <include package="imio.actionspanel" />
 
   <include package=".browser" />
   <include file="permissions.zcml" />
