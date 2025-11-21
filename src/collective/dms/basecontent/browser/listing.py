@@ -56,6 +56,7 @@ class VersionsTitleColumn(TitleColumn):
             description=html.escape(safe_unicode(content.Description)),
         )
 
+
 class UpdateColumn(column.DateColumn):
     header = PMF(u"listingheader_modified")
     attribute = "modified"
