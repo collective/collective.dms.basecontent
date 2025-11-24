@@ -4,7 +4,8 @@ Changelog
 1.14 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Refactored VersionsTable into an iconified Categorizedtable.
+  [chris-adam]
 
 
 1.13 (2024-03-01)

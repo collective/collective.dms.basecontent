@@ -1,38 +1,32 @@
 # coding=utf-8
 from BTrees.Length import Length
 from collective.dms.basecontent import _
-from plone.app.contenttypes.interfaces import IFile
+from imio.annex.content.annex import Annex
+from imio.annex.content.annex import IAnnex
 from plone.autoform import directives as form
-from plone.dexterity.content import Item
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.directives.form import default_value
-from plone.namedfile.field import NamedBlobFile
-from plone.supermodel import model
 from Products.CMFPlone.utils import base_hasattr
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from zope.interface import implements
 
 
-class IDmsFile(model.Schema, IFile):
+class IDmsFile(IAnnex):
     """Schema for DmsFile"""
 
     title = schema.TextLine(title=_(u"Version number"), required=False)
+
     form.mode(title="hidden")
 
-    model.primary("file")
-    file = NamedBlobFile(
-        title=_(u"File"),
-        required=True,
-    )
-
+    form.order_before(label='title')
     label = schema.TextLine(
         title=_(u"Label"),
         required=False,
     )
 
 
-class DmsFile(Item):
+class DmsFile(Annex):
     """DmsFile"""
 
     implements(IDmsFile)
@@ -56,17 +50,12 @@ class DmsFileSchemaPolicy(DexteritySchemaPolicy):
         return (IDmsFile,)
 
 
-class IDmsAppendixFile(model.Schema, IFile):
+class IDmsAppendixFile(IAnnex):
     """Schema for DmsAppendixFile"""
-
-    model.primary("file")
-    file = NamedBlobFile(
-        title=_(u"File"),
-        required=True,
-    )
+    form.mode(title="hidden")
 
 
-class DmsAppendixFile(Item):
+class DmsAppendixFile(Annex):
     """DmsAppendixFile"""
 
     implements(IDmsAppendixFile)

@@ -6,5 +6,8 @@
     <dependency>profile-plone.app.relationfield:default</dependency>
     <dependency>profile-collective.z3cform.select2:default</dependency>
     <dependency>profile-collective.documentviewer:default</dependency>
+    <dependency>profile-collective.iconifiedcategory:default</dependency>
+    <dependency>profile-imio.actionspanel:default</dependency>
+    <dependency>profile-collective.externaleditor:default</dependency>
   </dependencies>
 </metadata>

@@ -1,14 +1,18 @@
 from collective.documentviewer.views import DocumentViewerView
+from collective.externaleditor.browser.views import ExternalEditorEnabledView as BaseExternalEditorEnabledView
 from plone.dexterity.browser.edit import DefaultEditForm
 from plone.dexterity.browser.view import DefaultView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getMultiAdapter
 
 import json
+import os
 
 
 class VersionViewerView(DocumentViewerView):
-    pass
+    def index(self):
+        self.table = self.context.restrictedTraverse('@@iconifiedcategory_table')
+        return super(VersionViewerView, self).index()
 
 
 class JSONVersionViewerView(DocumentViewerView):
@@ -31,3 +35,15 @@ class DmsDocumentEdit(DefaultEditForm):
         super(DmsDocumentEdit, self).update()
         self.portal_url = getMultiAdapter((self.context, self.request), name="plone_portal_state").portal_url()
         self.dvstatic = "%s/++resource++dv.resources" % (self.portal_url)
+
+
+class ExternalEditorEnabledView(BaseExternalEditorEnabledView):
+    def available(self, bypasslock=False):
+        if self.context.file is None:
+            return False
+
+        ext = os.path.splitext(self.context.file.filename)[-1].lower()
+        if ext in (u".pdf", u".jpg", ".jpeg"):
+            return False
+
+        return super(ExternalEditorEnabledView, self).available(bypasslock=bypasslock)

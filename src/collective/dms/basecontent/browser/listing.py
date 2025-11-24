@@ -1,30 +1,37 @@
 # -*- coding: utf-8 -*-
 from collective.dms.basecontent import _
 from collective.dms.basecontent.browser import column
-from collective.dms.basecontent.browser.table import Table
-from Products.CMFCore.utils import getToolByName
-from zope.cachedescriptors.property import CachedProperty
-from zope.i18n import translate
+from collective.dms.basecontent.browser.table import Table as BaseTable
+from collective.iconifiedcategory import utils
+from collective.iconifiedcategory.browser.tabview import CategorizedContent
+from collective.iconifiedcategory.browser.tabview import TitleColumn
+from Products.CMFPlone.utils import safe_unicode
 from zope.i18nmessageid import MessageFactory
+
+import html
 
 
 PMF = MessageFactory("plone")
 
 
-class BaseTable(Table):
-    @CachedProperty
-    def values(self):
-        portal_catalog = getToolByName(self, "portal_catalog")
-        folder_path = "/".join(self.context.getPhysicalPath())
-        query = {"path": {"query": folder_path}, "sort_on": "getObjPositionInParent", "sort_order": "ascending"}
-        query.update(self.viewlet.contentFilter())
-        results = portal_catalog.searchResults(query)
-        return results
-
-
 class VersionsTable(BaseTable):
+    cssClasses = {"table": "listing nosort dv iconified-listing"}
 
-    cssClasses = {"table": "listing nosort dv"}
+    @property
+    def values(self):
+        if not getattr(self, '_v_stored_values', []):
+            sort_on = 'getObjPositionInParent'
+            data = [
+                CategorizedContent(self.context, content) for content in
+                utils.get_categorized_elements(
+                    self.context,
+                    result_type='dict',
+                    portal_type=self.portal_type,
+                    sort_on=sort_on,
+                )
+            ]
+            self._v_stored_values = data[::-1]
+        return self._v_stored_values
 
 
 class DmsAppendixTable(VersionsTable):
@@ -33,20 +40,21 @@ class DmsAppendixTable(VersionsTable):
         return [column for column in columns if column.__name__ != "dms.state"]
 
 
-class VersionsTitleColumn(column.TitleColumn):
-    domain = "collective.dms.basecontent"
-    linkCSS = "version-link"
-
-    def getLinkContent(self, item):
-        content = super(VersionsTitleColumn, self).getLinkContent(item)
-        return translate(content, domain=self.domain, context=self.request)
-
-
-class AuthorColumn(column.PrincipalColumn):
-    header = _(u"Author")
-    weight = 30
-    attribute = "Creator"
-    cssClasses = {"th": "th_header_author", "td": "td_cell_author"}
+class VersionsTitleColumn(TitleColumn):
+    def renderCell(self, content):
+        pattern = (
+            u'<a class="version-link" href="{link}" alt="{title}" title="{title}">'
+            u'<img src="{icon}" alt="{category}" title="{category}" />'
+            u' {title}</a><p class="discreet">{description}</p>'
+        )
+        url = content.getURL()
+        return pattern.format(
+            link=url,
+            title=html.escape(safe_unicode(getattr(content, self.attrName))),
+            icon=content.icon_url,
+            category=html.escape(safe_unicode(content.category_title)),
+            description=html.escape(safe_unicode(content.Description)),
+        )
 
 
 class UpdateColumn(column.DateColumn):

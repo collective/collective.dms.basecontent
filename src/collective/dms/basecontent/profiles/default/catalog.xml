@@ -3,6 +3,7 @@
     <index name="treating_groups" meta_type="KeywordIndex">
         <indexed_attr value="treating_groups"/>
     </index>
+
     <column value="treating_groups"/>
     <index name="recipient_groups" meta_type="KeywordIndex">
         <indexed_attr value="recipient_groups"/>

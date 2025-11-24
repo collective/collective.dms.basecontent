@@ -1,13 +1,15 @@
+from collective.iconifiedcategory import _
+from collective.iconifiedcategory.browser.tabview import CategorizedTable
+from collective.iconifiedcategory.interfaces import ICategorizedApproved
+from collective.iconifiedcategory.interfaces import ICategorizedPrint
+from collective.iconifiedcategory.interfaces import ICategorizedSigned
 from plone import api
 from plone.app.layout.viewlets.common import ViewletBase
-from plone.batching.interfaces import IBatch
-from z3c.table.interfaces import IBatchProvider
 from zope.cachedescriptors.property import CachedProperty
-from zope.component import getMultiAdapter
 from zope.i18nmessageid import MessageFactory
+from zope.interface import alsoProvides
 
 import datetime
-import z3c.table.table
 
 
 PMF = MessageFactory("plone")
@@ -17,32 +19,25 @@ class TableViewlet(ViewletBase):
     __table__ = NotImplemented
     label = NotImplemented
     noresult_message = NotImplemented
+    portal_type = NotImplemented
 
     def update(self):
         self.table = self.__table__(self.context, self.request)
+        self.table.portal_type = self.portal_type
+        self._prepare_table_render()
         self.table.viewlet = self
         self.table.update()
 
+    def _prepare_table_render(self):
+        if self.context.portal_type in ('dmsoutgoingmail', 'dmsoutgoing_email'):
+            alsoProvides(self.table, ICategorizedPrint)
+            alsoProvides(self.table, ICategorizedSigned)
+            alsoProvides(self.table, ICategorizedApproved)
 
-class Table(z3c.table.table.Table):
-    cssClassEven = u"even"
-    cssClassOdd = u"odd"
-    cssClasses = {"table": "listing nosort"}
-    sortOn = None
-    batchSize = 10000  # not used
-    startBatchingAt = 10000  # not used
-    batchProviderName = "plonebatch"
 
-    def batchRows(self):
-        # this is not self.rows that is batched, but self.values
-        pass
-
-    def updateBatch(self):
-        if IBatch.providedBy(self.values):
-            self.batchProvider = getMultiAdapter(
-                (self.context, self.request, self), IBatchProvider, name=self.batchProviderName
-            )
-            self.batchProvider.update()
+class Table(CategorizedTable):
+    cssClassEven = u'even'
+    cssClassOdd = u'odd'
 
     @CachedProperty
     def translation_service(self):
@@ -51,13 +46,6 @@ class Table(z3c.table.table.Table):
     @CachedProperty
     def wtool(self):
         return api.portal.get_tool("portal_workflow")
-
-    @CachedProperty
-    def portal_url(self):
-        return api.portal.get().absolute_url()
-
-    def update(self):
-        super(Table, self).update()
 
     def format_date(self, date, long_format=None, time_only=None):
         if date is None:
