@@ -92,6 +92,17 @@
         factory="collective.dms.basecontent.source.RecipientGroupsVocabulary"
         />
 
+    <unconfigure package="collective.iconifiedcategory">
+        <utility
+            name="collective.iconifiedcategory.categories"
+            provides="zope.schema.interfaces.IVocabularyFactory"
+            />
+    </unconfigure>
+    <utility
+        provides="zope.schema.interfaces.IVocabularyFactory"
+        name="collective.iconifiedcategory.categories"
+        factory="collective.dms.basecontent.source.CategoryVocabulary" />
+
     <!--various-->
     <subscriber
         for="collective.dms.basecontent.dmsfile.IDmsFile
