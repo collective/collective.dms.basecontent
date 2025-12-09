@@ -29,7 +29,7 @@ class TableViewlet(ViewletBase):
         self.table.update()
 
     def _prepare_table_render(self):
-        if self.context.portal_type in ('dmsoutgoingmail', 'dmsoutgoing_email'):
+        if self.context.portal_type == "dmsoutgoingmail":
             alsoProvides(self.table, ICategorizedPrint)
             alsoProvides(self.table, ICategorizedSigned)
             alsoProvides(self.table, ICategorizedApproved)
