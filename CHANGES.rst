@@ -4,9 +4,12 @@ Changelog
 1.14 (unreleased)
 -----------------
 
+- Blacked an isorted files
+  [sgeulette]
+- Made IDmsFile based on IAnnex
+  [chris-adam,sgeulette]
 - Refactored VersionsTable into an iconified Categorizedtable.
   [chris-adam]
-
 
 1.13 (2024-03-01)
 -----------------
