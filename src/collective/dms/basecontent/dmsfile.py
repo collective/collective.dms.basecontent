@@ -17,9 +17,7 @@ class IDmsFile(IAnnex):
 
     title = schema.TextLine(title=_(u"Version number"), required=False)
 
-    form.mode(title="hidden")
-
-    form.order_before(label='title')
+    form.mode(label="hidden")
     label = schema.TextLine(
         title=_(u"Label"),
         required=False,
