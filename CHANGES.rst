@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.14 (unreleased)
------------------
+2.0.0 (2026-01-15)
+------------------
 
 - Blacked an isorted files
   [sgeulette]
