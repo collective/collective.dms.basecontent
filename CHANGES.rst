@@ -1,11 +1,11 @@
 Changelog
 =========
 
-2.0.1 (unreleased)
+2.0.1 (2026-01-15)
 ------------------
 
-- Nothing changed yet.
-
+- Hidden label, show title.
+  [chris-adam]
 
 2.0.0 (2026-01-15)
 ------------------
