@@ -4,8 +4,8 @@ Changelog
 2.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Hidden description on IDmsFile and IDmsAppendixFile.
+  [sgeulette]
 
 2.0.1 (2026-01-15)
 ------------------
