@@ -23,10 +23,6 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: ../browser/column.py:144
-msgid "Download file"
-msgstr ""
-
 #: ../dmsfile.py:34
 msgid "File"
 msgstr ""

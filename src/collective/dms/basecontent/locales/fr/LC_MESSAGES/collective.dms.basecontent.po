@@ -24,10 +24,6 @@ msgstr "Annexes"
 msgid "Author"
 msgstr "Auteur"
 
-#: ../browser/column.py:144
-msgid "Download file"
-msgstr "Télécharger"
-
 #: ../dmsfile.py:34
 msgid "File"
 msgstr "Fichier"

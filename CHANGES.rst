@@ -6,6 +6,8 @@ Changelog
 
 - Hidden description on IDmsFile and IDmsAppendixFile.
   [sgeulette]
+- Removed duplicate download action
+  [chris-adam]
 
 2.0.1 (2026-01-15)
 ------------------
