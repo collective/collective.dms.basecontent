@@ -53,9 +53,12 @@ def v4(context):
     # Remove global download action from portal_actions/object_buttons
     portal_actions = api.portal.get_tool("portal_actions")
     object_buttons = portal_actions.get("object_buttons")
-    if (object_buttons and "download" in object_buttons
-            and object_buttons["download"].i18n_domain == "collective.dms.basecontent"):
+    if (
+        object_buttons
+        and "download" in object_buttons
+        and object_buttons["download"].i18n_domain == "collective.dms.basecontent"
+    ):
         object_buttons.manage_delObjects(["download"])
-    # Add smart download action to dmsdocument and dmsappendixfile FTIs
+    # Add download and view_element actions to dmsdocument and dmsappendixfile FTIs
     setup = api.portal.get_tool("portal_setup")
     setup.runImportStepFromProfile("profile-collective.dms.basecontent:default", "typeinfo")
