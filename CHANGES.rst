@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.2 (unreleased)
+2.0.2 (2026-03-03)
 ------------------
 
 - Hidden description on IDmsFile and IDmsAppendixFile.
