@@ -4,8 +4,8 @@ Changelog
 2.0.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Added view element action on files.
+  [cheris-adam]
 
 2.0.2 (2026-03-03)
 ------------------
