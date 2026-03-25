@@ -6,6 +6,8 @@ Changelog
 
 - Added view element action on files.
   [cheris-adam]
+- Improved document view to add a extra legend content
+  [sgeulette]
 
 2.0.2 (2026-03-03)
 ------------------

@@ -56,7 +56,10 @@
 
     <fieldset tal:repeat="group view/groups"
               tal:attributes="id python:''.join((group.prefix, 'groups.', group.__name__)).replace('.', '-')">
-        <legend tal:content="group/label" />
+        <legend>
+            <span tal:content="group/label" style="padding-right: 5px"></span>
+            <tal:extra tal:replace="structure python:view.legend_extra(group)" />
+        </legend>
         <tal:block tal:repeat="widget group/widgets/values">
             <tal:widget tal:replace="structure widget/@@ploneform-render-widget"/>
         </tal:block>

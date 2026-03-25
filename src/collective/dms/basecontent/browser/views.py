@@ -27,6 +27,9 @@ class DmsDocumentView(DefaultView):
         self.portal_url = getMultiAdapter((self.context, self.request), name="plone_portal_state").portal_url()
         self.dvstatic = "%s/++resource++dv.resources" % (self.portal_url)
 
+    def legend_extra(self, group):
+        return u""
+
 
 class DmsDocumentEdit(DefaultEditForm):
     template = ViewPageTemplateFile("templates/dmsdocument_edit.pt")
