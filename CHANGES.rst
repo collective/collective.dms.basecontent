@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.3 (unreleased)
+2.0.3 (2026-03-26)
 ------------------
 
 - Added view element action on files.
