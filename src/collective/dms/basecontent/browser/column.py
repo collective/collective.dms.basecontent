@@ -1,5 +1,4 @@
 from Acquisition import aq_base  # noqa
-from collective.dms.basecontent import _
 from collective.eeafaceted.z3ctable.columns import BaseColumn
 from Products.CMFCore.WorkflowCore import WorkflowException
 from zope.i18n import translate

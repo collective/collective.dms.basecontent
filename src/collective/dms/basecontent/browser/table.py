@@ -1,4 +1,3 @@
-from collective.iconifiedcategory import _
 from collective.iconifiedcategory.browser.tabview import CategorizedTable
 from collective.iconifiedcategory.interfaces import ICategorizedApproved
 from collective.iconifiedcategory.interfaces import ICategorizedPrint
@@ -53,9 +52,9 @@ class Table(CategorizedTable):
 
         # If date is a datetime object, isinstance(date, datetime.date)
         # returns True, so we use type here.
-        if type(date) == datetime.date:
+        if type(date) is datetime.date:
             date = date.strftime("%Y/%m/%d")
-        elif type(date) == datetime.datetime:
+        elif type(date) is datetime.datetime:
             date = date.strftime("%Y/%m/%d %H:%M")
 
         return self.translation_service.ulocalized_time(

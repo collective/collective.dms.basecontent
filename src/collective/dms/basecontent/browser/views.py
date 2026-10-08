@@ -1,4 +1,3 @@
-from collective.documentviewer.browser.views import DocumentViewerView
 from collective.externaleditor.browser.views import ExternalEditorEnabledView as BaseExternalEditorEnabledView
 from plone.dexterity.browser.edit import DefaultEditForm
 from plone.dexterity.browser.view import DefaultView
@@ -8,16 +7,23 @@ from zope.component import getMultiAdapter
 import os
 
 
-class VersionViewerView(DocumentViewerView):
-    def index(self):
-        self.table = self.context.restrictedTraverse('@@iconifiedcategory_table')
-        return super(VersionViewerView, self).index()
+try:
+    from collective.documentviewer.browser.views import DocumentViewerView
+except ImportError:  # collective.documentviewer is not available on Plone 6.2 (replaced, viewer not decided)
+    DocumentViewerView = None
 
 
-class JSONVersionViewerView(DocumentViewerView):
-    def index(self):
-        self.request.response.setHeader("Content-Type", "application/json")
-        return self.pattern_options()
+if DocumentViewerView is not None:
+
+    class VersionViewerView(DocumentViewerView):
+        def index(self):
+            self.table = self.context.restrictedTraverse('@@iconifiedcategory_table')
+            return super(VersionViewerView, self).index()
+
+    class JSONVersionViewerView(DocumentViewerView):
+        def index(self):
+            self.request.response.setHeader("Content-Type", "application/json")
+            return self.pattern_options()
 
 
 class DmsDocumentView(DefaultView):

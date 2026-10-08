@@ -1,7 +1,12 @@
-from collective.documentviewer.settings import GlobalSettings
+try:
+    from collective.documentviewer.settings import GlobalSettings
+except ImportError:  # collective.documentviewer is not available on Plone 6.2
+    GlobalSettings = None
 
 
 def setup_documentviewer(portal):
+    if GlobalSettings is None:
+        return
     dv_settings = GlobalSettings(portal)
     dv_settings.auto_layout_file_types = ("pdf", "ppt", "word", "rft")
     dv_settings.auto_convert = True

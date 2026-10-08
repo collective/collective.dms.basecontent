@@ -6,14 +6,14 @@
       <tal:b condition="results">
         <table tal:replace="structure view/table/render" />
         <div tal:define="version python:results[0].getObject()"
-             tal:replace="structure version/@@versionviewer" />
+             tal:replace="structure version/@@versionviewer | nothing" />
       </tal:b>
       <tal:b condition="not:results">
         <span tal:replace="view/noresult_message" />
         <div tal:condition="first_appendix"
              tal:define="first_appendix view/first_appendix;
                          version python:first_appendix and first_appendix.getObject();"
-             tal:replace="structure version/@@versionviewer" />
+             tal:replace="structure version/@@versionviewer | nothing" />
       </tal:b>
     </tal:listing>
 </fieldset>

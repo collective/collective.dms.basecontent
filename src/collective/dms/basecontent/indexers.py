@@ -5,8 +5,6 @@ from plone.indexer import indexer
 from Products.CMFCore.utils import getToolByName
 from ZODB.POSException import ConflictError
 
-import six
-
 
 @indexer(IDmsDocument)
 def document_dynamic_searchable_text_indexer(obj):
@@ -34,7 +32,7 @@ def document_dynamic_searchable_text_indexer(obj):
                 datastream = transforms.convertTo(
                     "text/plain", child.file.data, mimetype=child.file.contentType, filename=child.file.filename
                 )
-                indexed_elements.append(six.text_type(datastream.getData(), "utf-8"))
+                indexed_elements.append(datastream.getData().decode("utf-8"))
             except (ConflictError, KeyboardInterrupt):
                 raise
 

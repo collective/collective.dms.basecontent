@@ -1,11 +1,11 @@
 Changelog
 =========
 
-2.0.4 (unreleased)
+3.0.0 (unreleased)
 ------------------
 
-- Migrated to Plone 6.1.
-  [sgeulette, boulch]
+- Migrated to Plone 6.2, Python 3 only (Plone 4 support dropped), based on the work started by @sgeulette on `Plone61`.
+  [sgeulette, boulch, chris-adam]
 - Replaced RelatedDocs field widget by ContentBrowserWidgetFieldWidget.
   [chris-adam]
 

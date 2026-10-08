@@ -3,7 +3,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 
-version = "2.0.4.dev0"
+version = "3.0.0.dev0"
 
 long_description = (
     open("README.rst").read() + "\n" + "Contributors\n"
@@ -22,7 +22,7 @@ setup(
         "Environment :: Web Environment",
         "Framework :: Plone",
         "Framework :: Plone :: Addon",
-        "Framework :: Plone :: 6.1",
+        "Framework :: Plone :: 6.2",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
@@ -38,17 +38,13 @@ setup(
     license="gpl",
     packages=find_packages("src"),
     package_dir={"": "src"},
-    namespace_packages=["collective", "collective.dms"],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
         "z3c.table>=2.2",
-        "collective.documentviewer",
         "collective.externaleditor",
         "collective.iconifiedcategory",
-        "collective.z3cform.select2",
         "dexterity.localrolesfield",
-        "future",
         "imio.actionspanel",
         "imio.annex",
         "imio.helpers>=0.42",

@@ -1,6 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="plone">
 
     <browser:viewletManager
@@ -79,6 +80,7 @@
         />
 
     <browser:page
+        zcml:condition="installed collective.documentviewer"
         name="versionviewer"
         for="plone.app.contenttypes.interfaces.IFile"
         class=".views.VersionViewerView"
@@ -87,6 +89,7 @@
         layer="collective.documentviewer.interfaces.ILayer" />
 
     <browser:page
+        zcml:condition="installed collective.documentviewer"
         name="pattern-options"
         for="plone.app.contenttypes.interfaces.IFile"
         class=".views.JSONVersionViewerView"
@@ -99,7 +102,7 @@
         class=".views.ExternalEditorEnabledView"
         allowed_attributes="available"
         permission="zope2.View"
-        layer="collective.documentviewer.interfaces.ILayer"
+        layer="collective.externaleditor.interfaces.IExternalEditorLayer"
         />
 
     <!-- batch provider -->
