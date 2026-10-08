@@ -8,6 +8,8 @@ Changelog
   [sgeulette, boulch, chris-adam]
 - Replaced RelatedDocs field widget by ContentBrowserWidgetFieldWidget.
   [chris-adam]
+- Display the back references of related documents again (RelatedDocsWidget).
+  [chris-adam]
 
 
 2.0.3 (2026-03-26)

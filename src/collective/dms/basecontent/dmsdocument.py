@@ -1,4 +1,5 @@
 from collective.dms.basecontent import _
+from collective.dms.basecontent.relateddocs import RelatedDocsFieldWidget
 from dexterity.localrolesfield.field import LocalRolesField
 from imio.helpers.content import object_values
 from plone.app.z3cform.widgets.select import Select2FieldWidget
@@ -41,8 +42,8 @@ class IDmsDocument(model.Schema):
         # value_type=RelationChoice(title=u"", source=CatalogSource(portal_type="dmsdocument")),
         value_type=RelationChoice(title=u"", vocabulary="plone.app.vocabularies.Catalog"),
         required=False,
-        # display_backrefs=True, # TODO MIGRATION-PLONE6 option not available in widget
     )
+    form.widget("related_docs", RelatedDocsFieldWidget)
 
 
 @implementer(IDmsDocument)
