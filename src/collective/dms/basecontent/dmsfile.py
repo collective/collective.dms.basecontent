@@ -6,7 +6,6 @@ from imio.annex.content.annex import IAnnex
 from plone.autoform import directives as form
 from plone.dexterity.schema import DexteritySchemaPolicy
 from Products.CMFPlone.utils import base_hasattr
-from Products.CMFPlone.utils import safe_unicode
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from zope.interface import implementer
@@ -21,7 +20,7 @@ def titleDefaultValue(container):
         version_number = 1
     else:
         version_number = annotations["higher_version"].value + 1
-    return safe_unicode(version_number)
+    return str(version_number)
 
 
 class IDmsFile(IAnnex):
