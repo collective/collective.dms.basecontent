@@ -37,6 +37,8 @@ class TestDmsdocument(unittest.TestCase, BaseTest):
         self.assertEqual(set(voc_ids), {"Administrators", "Site Administrators"})
 
     def test_getmainfiles(self):
+        # dms files are categorized: the categories vocabulary creates the config, as when a file is added
+        getUtility(IVocabularyFactory, "collective.iconifiedcategory.categories")(self.doc)
         self.assertListEqual(self.doc.get_mainfiles(), [])
         file1 = createContentInContainer(self.doc, "dmsmainfile", **{"title": "MF 1"})
         createContentInContainer(self.doc, "dmsappendixfile", **{"title": "AF 1"})
