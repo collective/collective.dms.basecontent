@@ -45,9 +45,6 @@ def v3(context):
     for prd in ("collective.z3cform.chosen", "collective.js.chosen"):
         if qi_tool.is_product_installed(prd):
             qi_tool.uninstall_product(prd)
-    # install select2
-    setup = api.portal.get_tool("portal_setup")
-    setup.runAllImportStepsFromProfile("profile-collective.z3cform.select2:default", dependency_strategy="new")
 
 
 def v4(context):

@@ -10,6 +10,8 @@ Changelog
   [chris-adam]
 - Display the back references of related documents again (RelatedDocsWidget).
   [chris-adam]
+- Fixed Plone 6.2 leftovers: SearchableText indexer on Python 3, action icons, batch integer division, select2 upgrade.
+  [chris-adam]
 
 
 2.0.3 (2026-03-26)

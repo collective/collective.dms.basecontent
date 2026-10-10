@@ -1,6 +1,7 @@
 from collective.dms.basecontent.dmsdocument import IDmsDocument
 from OFS.interfaces import IItem
 from plone.base.utils import base_hasattr
+from plone.base.utils import safe_text
 from plone.indexer import indexer
 from Products.CMFCore.utils import getToolByName
 from ZODB.POSException import ConflictError
@@ -32,7 +33,7 @@ def document_dynamic_searchable_text_indexer(obj):
                 datastream = transforms.convertTo(
                     "text/plain", child.file.data, mimetype=child.file.contentType, filename=child.file.filename
                 )
-                indexed_elements.append(datastream.getData().decode("utf-8"))
+                indexed_elements.append(safe_text(datastream.getData()))
             except (ConflictError, KeyboardInterrupt):
                 raise
 

@@ -4,8 +4,8 @@ from collective.dms.basecontent import _
 from imio.annex.content.annex import Annex
 from imio.annex.content.annex import IAnnex
 from plone.autoform import directives as form
+from plone.base.utils import base_hasattr
 from plone.dexterity.schema import DexteritySchemaPolicy
-from Products.CMFPlone.utils import base_hasattr
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from zope.interface import implementer

@@ -5,7 +5,7 @@ from collective.dms.basecontent.browser.table import Table as BaseTable
 from collective.iconifiedcategory import utils
 from collective.iconifiedcategory.browser.tabview import CategorizedContent
 from collective.iconifiedcategory.browser.tabview import TitleColumn
-from Products.CMFPlone.utils import safe_unicode
+from plone.base.utils import safe_text
 from zope.i18nmessageid import MessageFactory
 
 import html
@@ -50,10 +50,10 @@ class VersionsTitleColumn(TitleColumn):
         url = content.getURL()
         return pattern.format(
             link=url,
-            title=html.escape(safe_unicode(getattr(content, self.attrName))),
+            title=html.escape(safe_text(getattr(content, self.attrName))),
             icon=content.icon_url,
-            category=html.escape(safe_unicode(content.category_title)),
-            description=html.escape(safe_unicode(content.Description)),
+            category=html.escape(safe_text(content.category_title)),
+            description=html.escape(safe_text(content.Description)),
         )
 
 

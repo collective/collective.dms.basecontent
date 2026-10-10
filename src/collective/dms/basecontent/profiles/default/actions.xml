@@ -8,7 +8,7 @@
        i18n:translate="">Edit with external application</property>
    <property name="description" i18n:translate=""></property>
    <property name="url_expr">string:${object_url}/@@external_edit</property>
-   <property name="icon_expr">string:${portal_url}/extedit_icon.png</property>
+   <property name="icon_expr">string:${portal_url}/++resource++imio.actionspanel/extedit_icon.png</property>
    <property name="available_expr">object/externalEditorEnabled</property>
    <property name="permissions">
     <element value="Modify portal content"/>

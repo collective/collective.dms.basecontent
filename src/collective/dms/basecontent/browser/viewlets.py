@@ -2,6 +2,7 @@ from collective.dms.basecontent import _
 from collective.dms.basecontent.browser.listing import DmsAppendixTable
 from collective.dms.basecontent.browser.listing import VersionsTable
 from collective.dms.basecontent.browser.table import TableViewlet
+from collective.dms.basecontent.browser.views import DocumentViewerView
 from plone import api
 from plone.app.layout.viewlets.common import ViewletBase
 from zope.viewlet.interfaces import IViewletManager
@@ -32,6 +33,8 @@ class VersionsViewlet(BaseViewlet):
     portal_type = "dmsmainfile"
     label = _(u"Versions")
     noresult_message = _(u"There is no version note for this document.")
+    # the versions JS loads the selected version in collective.documentviewer
+    has_viewer = DocumentViewerView is not None
 
     def contentFilter(self):
         return {"portal_type": self.portal_type, "sort_on": "getObjPositionInParent", "sort_order": "descending"}

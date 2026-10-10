@@ -17,7 +17,7 @@
       </tal:b>
     </tal:listing>
 </fieldset>
-<script type="text/javascript">
+<script type="text/javascript" tal:condition="view/has_viewer">
 $(document).ready(function(){
     var initial_timeout = null;
     documentviewer = document.querySelector('div.pat-documentviewer.DV-container');

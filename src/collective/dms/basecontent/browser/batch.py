@@ -28,7 +28,7 @@ class PloneBatchProvider(object):
         self.update()
         batch = self.batch
         #        if not batch.multiple_pages:
-        if not (batch.sequence_length != batch.pagesize and batch.sequence_length / batch.pagesize):
+        if not (batch.sequence_length != batch.pagesize and batch.sequence_length // batch.pagesize):
             return u""
 
         res = [self.batchStartTag]
