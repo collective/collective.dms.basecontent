@@ -17,7 +17,7 @@ if DocumentViewerView is not None:
 
     class VersionViewerView(DocumentViewerView):
         def index(self):
-            self.table = self.context.restrictedTraverse('@@iconifiedcategory_table')
+            self.table = self.context.restrictedTraverse("@@iconifiedcategory_table")
             return super(VersionViewerView, self).index()
 
     class JSONVersionViewerView(DocumentViewerView):
@@ -33,7 +33,7 @@ class DmsDocumentView(DefaultView):
         self.dvstatic = "%s/++resource++dv.resources" % (self.portal_url)
 
     def legend_extra(self, group):
-        return u""
+        return ""
 
 
 class DmsDocumentEdit(DefaultEditForm):
@@ -53,7 +53,7 @@ class ExternalEditorEnabledView(BaseExternalEditorEnabledView):
             return False
 
         ext = os.path.splitext(self.context.file.filename)[-1].lower()
-        if ext in (u".pdf", u".jpg", ".jpeg"):
+        if ext in (".pdf", ".jpg", ".jpeg"):
             return False
 
         return super(ExternalEditorEnabledView, self).available(bypasslock=bypasslock)

@@ -37,7 +37,7 @@ def document_dynamic_searchable_text_indexer(obj):
             except (ConflictError, KeyboardInterrupt):
                 raise
 
-    return u" ".join(indexed_elements)
+    return " ".join(indexed_elements)
 
 
 @indexer(IItem)

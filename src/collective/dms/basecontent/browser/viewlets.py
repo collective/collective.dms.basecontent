@@ -31,8 +31,8 @@ APPENDIX_FILTER = {"portal_type": "dmsappendixfile", "sort_on": "getObjPositionI
 
 class VersionsViewlet(BaseViewlet):
     portal_type = "dmsmainfile"
-    label = _(u"Versions")
-    noresult_message = _(u"There is no version note for this document.")
+    label = _("Versions")
+    noresult_message = _("There is no version note for this document.")
     # the versions JS loads the selected version in collective.documentviewer
     has_viewer = DocumentViewerView is not None
 
@@ -52,8 +52,8 @@ class VersionsViewlet(BaseViewlet):
 
 class AppendixViewlet(BaseViewlet):
     portal_type = "dmsappendixfile"
-    label = _(u"Appendix")
-    noresult_message = _(u"There is no appendix for this document.")
+    label = _("Appendix")
+    noresult_message = _("There is no appendix for this document.")
     __table__ = DmsAppendixTable
 
     def contentFilter(self):
@@ -62,7 +62,7 @@ class AppendixViewlet(BaseViewlet):
 
 class ChangeTitleViewlet(ViewletBase):
     def render(self):
-        return u"""
+        return """
 <script type="text/javascript">
   (function ($) {
     $(document).ready(function () {

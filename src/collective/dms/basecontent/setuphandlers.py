@@ -18,21 +18,21 @@ def setup_externaleditor(portal):
     from plone import api
 
     enabled_types = api.portal.get_registry_record(
-        'externaleditor.externaleditor_enabled_types',
-        default=[u'File', u'Image'],
+        "externaleditor.externaleditor_enabled_types",
+        default=["File", "Image"],
     )
 
-    if u'dmsappendixfile' not in enabled_types:
-        enabled_types.append(u'dmsappendixfile')
+    if "dmsappendixfile" not in enabled_types:
+        enabled_types.append("dmsappendixfile")
         api.portal.set_registry_record(
-            'externaleditor.externaleditor_enabled_types',
+            "externaleditor.externaleditor_enabled_types",
             enabled_types,
         )
 
-    if u'dmsmainfile' not in enabled_types:
-        enabled_types.append(u'dmsmainfile')
+    if "dmsmainfile" not in enabled_types:
+        enabled_types.append("dmsmainfile")
         api.portal.set_registry_record(
-            'externaleditor.externaleditor_enabled_types',
+            "externaleditor.externaleditor_enabled_types",
             enabled_types,
         )
 

@@ -35,8 +35,8 @@ class TableViewlet(ViewletBase):
 
 
 class Table(CategorizedTable):
-    cssClassEven = u'even'
-    cssClassOdd = u'odd'
+    cssClassEven = "even"
+    cssClassOdd = "odd"
 
     @CachedProperty
     def translation_service(self):
@@ -48,7 +48,7 @@ class Table(CategorizedTable):
 
     def format_date(self, date, long_format=None, time_only=None):
         if date is None:
-            return u""
+            return ""
 
         # If date is a datetime object, isinstance(date, datetime.date)
         # returns True, so we use type here.
@@ -85,4 +85,4 @@ class Table(CategorizedTable):
                 cssClass += " row-state-%s" % state_value
 
         cssClass = self.getCSSClass("tr", cssClass)
-        return u"\n    <tr%s>%s\n    </tr>" % (cssClass, u"".join(cells))
+        return "\n    <tr%s>%s\n    </tr>" % (cssClass, "".join(cells))

@@ -26,11 +26,11 @@ def titleDefaultValue(container):
 class IDmsFile(IAnnex):
     """Schema for DmsFile"""
 
-    title = schema.TextLine(title=_(u"Version number"), required=False, defaultFactory=titleDefaultValue)
+    title = schema.TextLine(title=_("Version number"), required=False, defaultFactory=titleDefaultValue)
 
     form.mode(label="hidden")
     label = schema.TextLine(
-        title=_(u"Label"),
+        title=_("Label"),
         required=False,
     )
 
@@ -47,9 +47,9 @@ class DmsFile(Annex):
 
     def Title(self):
         if self.incomingmail:
-            return _(u"Incoming mail")
+            return _("Incoming mail")
         elif base_hasattr(self, "signed") and self.signed:
-            return _(u"Signed version")
+            return _("Signed version")
         else:
             return self.title
 
@@ -63,6 +63,7 @@ class DmsFileSchemaPolicy(DexteritySchemaPolicy):
 
 class IDmsAppendixFile(IAnnex):
     """Schema for DmsAppendixFile"""
+
     form.mode(title="hidden")
     form.mode(description="hidden")
 

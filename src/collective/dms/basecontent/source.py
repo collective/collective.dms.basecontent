@@ -26,8 +26,8 @@ class CategoryVocabulary(BaseCategoryVocabulary):
         portal = api.portal.get()
         ccc = api.content.create(
             container=portal,
-            id='contentcategory-configuration',
-            title='Content Category Configuration',
+            id="contentcategory-configuration",
+            title="Content Category Configuration",
             type="ContentCategoryConfiguration",
             exclude_from_nav=True,
             safe_id=True,
@@ -42,7 +42,7 @@ class CategoryVocabulary(BaseCategoryVocabulary):
         )
 
         with open(os.path.join(os.path.dirname(__file__), "tests", "icon.png"), "rb") as fl:
-            icon = NamedBlobImage(fl.read(), filename=u"icon.png")
+            icon = NamedBlobImage(fl.read(), filename="icon.png")
         cc = api.content.create(
             type="ContentCategory",
             title="Default Category",

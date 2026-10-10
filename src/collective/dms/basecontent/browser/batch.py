@@ -6,11 +6,11 @@ from ZTUtils import make_query
 @implementer(IBatchProvider)
 class PloneBatchProvider(object):
     batchformkeys = None
-    defaultBatchLinkCSS = u""
-    batchLinkCSS = {"previous": u"previous", "next": u"next", "first": u"first", "current": u"current", "last": u"last"}
-    batchSpacer = u"..."
-    batchStartTag = u'<div class="listingBar">'
-    batchEndTag = u"</div>"
+    defaultBatchLinkCSS = ""
+    batchLinkCSS = {"previous": "previous", "next": "next", "first": "first", "current": "current", "last": "last"}
+    batchSpacer = "..."
+    batchStartTag = '<div class="listingBar">'
+    batchEndTag = "</div>"
     b_start_str = "b_start"
     addNextAfterPrevious = True
 
@@ -29,7 +29,7 @@ class PloneBatchProvider(object):
         batch = self.batch
         #        if not batch.multiple_pages:
         if not (batch.sequence_length != batch.pagesize and batch.sequence_length // batch.pagesize):
-            return u""
+            return ""
 
         res = [self.batchStartTag]
         append = res.append
@@ -66,10 +66,10 @@ class PloneBatchProvider(object):
             append(self.renderBatchLink(batch.nextpage, self.batchLinkCSS["next"], text="&raquo;"))
 
         append(self.batchEndTag)
-        return u"\n".join(res)
+        return "\n".join(res)
 
-    def renderCurrentBatchLink(self, pagenumber, cssClass=u""):
-        return u'<span class="%s">%s</span>' % (cssClass, pagenumber)
+    def renderCurrentBatchLink(self, pagenumber, cssClass=""):
+        return '<span class="%s">%s</span>' % (cssClass, pagenumber)
 
     def renderBatchLink(self, pagenumber, cssClass=None, text=None):
         if text is None:
@@ -83,24 +83,24 @@ class PloneBatchProvider(object):
         if self.batchformkeys:
             batchlinkparams = dict([(key, form[key]) for key in self.batchformkeys if key in form])
             query = make_query(batchlinkparams, {self.b_start_str: start})
-            return u'<a data-query="%s"%s>%s</a>' % (query, cssClass and u' class="%s"' % cssClass or u"", text)
+            return '<a data-query="%s"%s>%s</a>' % (query, cssClass and ' class="%s"' % cssClass or "", text)
         else:
             batchlinkparams = form.copy()
             query = make_query(batchlinkparams, {self.b_start_str: start})
             url = "%s?%s" % (self.request.ACTUAL_URL, query)
-            return u'<a href="%s"%s>%s</a>' % (url, cssClass and u' class="%s"' % cssClass or u"", text)
+            return '<a href="%s"%s>%s</a>' % (url, cssClass and ' class="%s"' % cssClass or "", text)
 
 
 class BootstrapPloneBatchProvider(PloneBatchProvider):
-    batchLinkCSS = {"previous": u"previous", "next": u"next", "first": u"first", "current": u"active", "last": u"last"}
-    batchSpacer = u'<li class="disabled"><a>&hellip;</a></li>'
-    batchStartTag = u'<div class="pagination"><ul class="pager">'
-    batchEndTag = u"</ul></div>"
+    batchLinkCSS = {"previous": "previous", "next": "next", "first": "first", "current": "active", "last": "last"}
+    batchSpacer = '<li class="disabled"><a>&hellip;</a></li>'
+    batchStartTag = '<div class="pagination"><ul class="pager">'
+    batchEndTag = "</ul></div>"
     addNextAfterPrevious = False
 
     def renderBatchLink(self, pagenumber, cssClass=None, text=None):
-        result = super(BootstrapPloneBatchProvider, self).renderBatchLink(pagenumber, u"", text)
-        return u"""<li%s>%s</li>""" % (cssClass and u' class="%s"' % cssClass or u"", result)
+        result = super(BootstrapPloneBatchProvider, self).renderBatchLink(pagenumber, "", text)
+        return """<li%s>%s</li>""" % (cssClass and ' class="%s"' % cssClass or "", result)
 
-    def renderCurrentBatchLink(self, pagenumber, cssClass=u""):
-        return u'<li class="active"><a href="#">%s</a></li>' % pagenumber
+    def renderCurrentBatchLink(self, pagenumber, cssClass=""):
+        return '<li class="active"><a href="#">%s</a></li>' % pagenumber
