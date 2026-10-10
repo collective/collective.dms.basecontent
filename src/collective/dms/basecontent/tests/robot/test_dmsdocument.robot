@@ -26,7 +26,7 @@ Edit the document and see the saved values
     Input text  css=#form-widgets-notes  Signed by both parties
     Select in the multiple selection widget  treating_groups  Reviewers
     Select in the multi select2 widget  recipient_groups  Site Administrators
-    Click button  css=#form-buttons-save
+    Save the form
     The status message contains  Changes saved
     The field shows  notes  Signed by both parties
     The field shows  treating_groups  Reviewers
@@ -44,7 +44,7 @@ The dms document edit form shows the versions next to the fields
     ${row} =  The version row  Version 1
     Page should contain element  ${row}
     Input text  css=#form-widgets-notes  Second version expected
-    Click button  css=#form-buttons-save
+    Save the form
     The status message contains  Changes saved
     Location should be  ${PLONE_URL}/contract
     The field shows  notes  Second version expected

@@ -124,3 +124,10 @@ Select the display view
     Click element  css=#plone-contentmenu-display > a
     Wait until element is visible  css=#plone-contentmenu-display-${view_id}
     Click element  css=#plone-contentmenu-display-${view_id}
+
+Save the form
+    [Documentation]  Save button of a z3c.form page (add or edit form)
+    # not under the sticky form buttons, and enabled (the button is disabled until the patterns are loaded)
+    Execute javascript  document.getElementById("form-buttons-save").scrollIntoView({block: "center", behavior: "instant"})
+    Wait until page does not contain element  css=#form-buttons-save.disabled
+    Click button  css=#form-buttons-save

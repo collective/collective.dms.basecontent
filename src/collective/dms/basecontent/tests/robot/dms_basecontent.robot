@@ -27,7 +27,7 @@ Add a document
     Go to  ${PLONE_URL}
     Click the add menu item  dmsdocument
     Input text  css=#form-widgets-IDublinCore-title  ${title}
-    Click button  css=#form-buttons-save
+    Save the form
     The status message contains  Item created
 
 Add a version
@@ -37,7 +37,7 @@ Add a version
     Click the add menu item  dmsmainfile
     Input text  css=#form-widgets-title  ${title}
     Choose file  css=#form-widgets-file-input  ${path}
-    Click button  css=#form-buttons-save
+    Save the form
     The status message contains  Item created
 
 Add an appendix
@@ -47,7 +47,7 @@ Add an appendix
     Click the add menu item  dmsappendixfile
     Input text  css=#form-widgets-IBasic-title  ${title}
     Choose file  css=#form-widgets-file-input  ${path}
-    Click button  css=#form-buttons-save
+    Save the form
     The status message contains  Item created
 
 The version row
