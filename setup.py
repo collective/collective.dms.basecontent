@@ -56,7 +56,13 @@ setup(
         "setuptools",
     ],
     extras_require={
-        "test": ["plone.app.testing", "ecreall.helpers.testing", "plone.app.vocabularies"],
+        "test": [
+            "plone.app.testing",
+            "plone.app.robotframework",
+            "ecreall.helpers.testing",
+            "plone.app.vocabularies",
+            "robotsuite",
+        ],
     },
     entry_points="""
     # -*- Entry points: -*-

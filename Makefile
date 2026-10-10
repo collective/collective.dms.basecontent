@@ -7,8 +7,8 @@ SHELL=/bin/bash
 plones=6.2
 b_o=
 old_plone=$(shell [ -e .plone-version ] && cat .plone-version)
-ZSERVER_PORT ?= 55011
-LISTENER_PORT ?= 55012
+ZSERVER_PORT ?= 55001
+LISTENER_PORT ?= 55003
 
 ifeq (, $(shell which pyenv))
   $(error "pyenv command not found! Aborting")
