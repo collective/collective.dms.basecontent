@@ -45,7 +45,7 @@ class TestDmsFileActionsPanelView(unittest.TestCase):
         self.assertEqual(
             [action["id"] for action in view.listObjectButtonsActions()], ["delete", "external_edit", "download"]
         )
-        icons = re.findall(r'class="apButtonAction_form_(\w+)"[^>]*>\s*<img src="([^"]+)"', view())
+        icons = re.findall(r'class="apButtonAction_form_(\w+)[^"]*"[^>]*>\s*<img src="([^"]+)"', view())
         portal_url = self.portal.absolute_url()
         self.assertEqual(
             icons,
