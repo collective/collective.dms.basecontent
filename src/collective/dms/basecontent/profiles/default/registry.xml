@@ -3,13 +3,13 @@
     <value>False</value>
   </record>
   <record name="plone.types_not_searched" interface="plone.base.interfaces.controlpanel.ISearchSchema" field="types_not_searched">
-    <value>
+    <value purge="false">
       <element>dmsmainfile</element>
       <element>dmsappendixfile</element>
     </value>
   </record>
   <record name="plone.types_use_view_action_in_listings" interface="plone.base.interfaces.controlpanel.ITypesSchema" field="types_use_view_action_in_listings">
-    <value>
+    <value purge="false">
       <element>dmsmainfile</element>
       <element>dmsappendixfile</element>
     </value>

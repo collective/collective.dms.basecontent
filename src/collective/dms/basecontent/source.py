@@ -1,6 +1,9 @@
 from collective.iconifiedcategory.vocabularies import CategoryVocabulary as BaseCategoryVocabulary
 from plone import api
 from plone.namedfile import NamedBlobImage
+from plone.protect.interfaces import IDisableCSRFProtection
+from zope.globalrequest import getRequest
+from zope.interface import alsoProvides
 
 import os
 
@@ -16,6 +19,10 @@ class CategoryVocabulary(BaseCategoryVocabulary):
 
     def create_default_category(self):
         """Create a default category if none exists."""
+        # created when a file add form is opened (GET): not a write of the user (plone.protect auto CSRF)
+        request = getRequest()
+        if request is not None:
+            alsoProvides(request, IDisableCSRFProtection)
         portal = api.portal.get()
         ccc = api.content.create(
             container=portal,

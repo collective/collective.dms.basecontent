@@ -12,6 +12,8 @@ Changelog
   [chris-adam]
 - Fixed Plone 6.2 leftovers: SearchableText indexer on Python 3, action icons, batch integer division, select2 upgrade.
   [chris-adam]
+- Fixed Plone 6.2 regressions found by the tests: default category created on a GET form, external edit action always shown, registry lists purged, versions table column order, edit form tabs hiding the fields.
+  [chris-adam]
 
 
 2.0.3 (2026-03-26)

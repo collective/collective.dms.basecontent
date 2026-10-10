@@ -65,7 +65,8 @@ class UpdateColumn(column.DateColumn):
 
 
 class StateColumn(column.StateColumn):
-    weight = 50
+    # before the author column (50): the Python 2 adapter order placed it there
+    weight = 45
 
 
 class VersionLabelColumn(column.LabelColumn):

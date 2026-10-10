@@ -38,6 +38,8 @@ class DmsDocumentView(DefaultView):
 
 class DmsDocumentEdit(DefaultEditForm):
     template = ViewPageTemplateFile("templates/dmsdocument_edit.pt")
+    # Plone 6 form tabs (pat-autotoc) would make a tab of the versions fieldset, hiding the fields
+    enable_form_tabbing = False
 
     def update(self):
         super(DmsDocumentEdit, self).update()
