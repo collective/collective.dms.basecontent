@@ -57,6 +57,8 @@ The related documents link to each other
     Set field value  ${uid_a}  related_docs  ["${uid_b}"]  references
     Log in as site admin
     Go to  ${PLONE_URL}/doc-a
-    Page should contain link  xpath=//*[@id="form-widgets-related_docs"]//a[@href="${PLONE_URL}/doc-b"][normalize-space()="Document B"]
+    The patterns are initialized
+    Element should be visible  xpath=//*[@id="form-widgets-related_docs"]//a[@href="${PLONE_URL}/doc-b"][normalize-space()="Document B"]
     Go to  ${PLONE_URL}/doc-b
-    Page should contain link  xpath=//*[@id="form-widgets-related_docs"]//a[@href="${PLONE_URL}/doc-a"][normalize-space()="Document A"]
+    The patterns are initialized
+    Element should be visible  xpath=//*[@id="form-widgets-related_docs"]//a[@href="${PLONE_URL}/doc-a"][normalize-space()="Document A"]

@@ -65,6 +65,13 @@ class TestRelatedDocsWidget(RelatedDocsTestCase):
         self.assertIn("pat-relateditems", widget.render())
         self.assertNotIn("Doc 1", widget.render())
 
+    def test_update(self):
+        # display mode: no pattern class, mockup would hide the links behind an empty related items widget
+        self.assertNotIn("pat-relateditems", self.widget(self.doc1).klass)
+        self.assertNotIn("pat-relateditems", self.widget(self.doc1).render())
+        # input mode: the pattern class
+        self.assertIn("pat-relateditems", self.widget(self.doc1, "@@edit").klass)
+
     def test_tuples(self):
         # its references, then its back references
         self.assertEqual(

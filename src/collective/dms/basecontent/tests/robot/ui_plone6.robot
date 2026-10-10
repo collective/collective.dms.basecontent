@@ -131,3 +131,9 @@ Save the form
     Execute javascript  document.getElementById("form-buttons-save").scrollIntoView({block: "center", behavior: "instant"})
     Wait until page does not contain element  css=#form-buttons-save.disabled
     Click button  css=#form-buttons-save
+
+The patterns are initialized
+    [Documentation]  Mockup initializes some patterns asynchronously, after the page load (body.patterns-loaded):
+    ...              a wrong pattern hid the related documents links 0.25 s later
+    Wait until page contains element  css=body.patterns-loaded
+    Sleep  2s

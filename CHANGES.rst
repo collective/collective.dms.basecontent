@@ -14,6 +14,8 @@ Changelog
   [chris-adam]
 - Fixed Plone 6.2 regressions found by the tests: default category created on a GET form, external edit action always shown, registry lists purged, versions table column order, edit form tabs hiding the fields.
   [chris-adam]
+- Fixed the related documents links hidden in display mode by the related items pattern (Plone 6.2).
+  [chris-adam]
 
 
 2.0.3 (2026-03-26)

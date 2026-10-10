@@ -16,6 +16,12 @@ class RelatedDocsWidget(RelatedItemsWidget):
     display_template = ViewPageTemplateFile("related-docs-display.pt")
     display_backrefs = True
 
+    def update(self):
+        super(RelatedDocsWidget, self).update()
+        if self.mode == DISPLAY_MODE:
+            # added in every mode by plone.app.z3cform: mockup would hide the links behind an empty widget
+            self.klass = " ".join(c for c in self.klass.split() if c != "pat-relateditems")
+
     def render(self):
         if self.mode == DISPLAY_MODE:
             return self.display_template(self)
