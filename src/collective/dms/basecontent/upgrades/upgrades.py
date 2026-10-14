@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 from plone import api
 from plone.base.utils import get_installer
 
 import logging
-
 
 logger = logging.getLogger("collective.dms.basecontent: upgrade. ")
 
@@ -59,4 +57,6 @@ def v4(context):
         object_buttons.manage_delObjects(["download"])
     # Add download and view_element actions to dmsdocument and dmsappendixfile FTIs
     setup = api.portal.get_tool("portal_setup")
-    setup.runImportStepFromProfile("profile-collective.dms.basecontent:default", "typeinfo")
+    setup.runImportStepFromProfile(
+        "profile-collective.dms.basecontent:default", "typeinfo"
+    )

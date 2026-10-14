@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collective.dms.basecontent.browser.column import DateColumn
 from collective.dms.basecontent.browser.column import get_value
 from collective.dms.basecontent.browser.column import LabelColumn
@@ -24,8 +23,12 @@ class ColumnTestCase(unittest.TestCase):
         self.request = self.layer["request"]
         self.pc = self.portal.portal_catalog
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
-        self.doc = createContentInContainer(self.portal, "dmsdocument", title="Building permit", notes="Urgent")
-        self.version = add_file(self.doc, "dmsmainfile", "letter.html", LETTER, title="1")
+        self.doc = createContentInContainer(
+            self.portal, "dmsdocument", title="Building permit", notes="Urgent"
+        )
+        self.version = add_file(
+            self.doc, "dmsmainfile", "letter.html", LETTER, title="1"
+        )
         self.table = VersionsTable(self.doc, self.request)
         self.table.portal_type = "dmsmainfile"
         self.table.update()
@@ -47,7 +50,9 @@ class TestColumn(ColumnTestCase):
         self.assertEqual(get_value(brain, "getRemoteUrl", "default"), "default")
         # not a metadata: from the object, called if callable
         self.assertEqual(get_value(brain, "notes"), "Urgent")
-        self.assertEqual(get_value(brain, "absolute_url"), "http://nohost/plone/building-permit")
+        self.assertEqual(
+            get_value(brain, "absolute_url"), "http://nohost/plone/building-permit"
+        )
         self.assertEqual(get_value(brain, "unknown", "default"), "default")
         # categorized content
         self.assertEqual(get_value(self.item, "portal_type"), "dmsmainfile")
@@ -75,7 +80,9 @@ class TestStateColumn(ColumnTestCase):
         # no workflow
         self.assertEqual(column.renderCell(self.item), "")
         self.assertEqual(column.renderCell(self.brain(self.doc)), "")
-        self.portal.portal_workflow.setChainForPortalTypes(("dmsdocument",), ("simple_publication_workflow",))
+        self.portal.portal_workflow.setChainForPortalTypes(
+            ("dmsdocument",), ("simple_publication_workflow",)
+        )
         doc = createContentInContainer(self.portal, "dmsdocument", title="Reply")
         self.assertEqual(column.renderCell(self.brain(doc)), "Private")
 

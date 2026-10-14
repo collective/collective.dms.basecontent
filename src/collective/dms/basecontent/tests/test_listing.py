@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collective.dms.basecontent.browser.listing import DmsAppendixTable
 from collective.dms.basecontent.browser.listing import StateColumn
 from collective.dms.basecontent.browser.listing import UpdateColumn
@@ -28,10 +27,18 @@ class ListingTestCase(unittest.TestCase):
         self.portal = self.layer["portal"]
         self.request = self.layer["request"]
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
-        self.doc = createContentInContainer(self.portal, "dmsdocument", title="Building permit")
-        self.version1 = add_file(self.doc, "dmsmainfile", "letter.html", LETTER, title="1")
-        self.appendix = add_file(self.doc, "dmsappendixfile", "plan.html", PLAN, title="Plan")
-        self.version2 = add_file(self.doc, "dmsmainfile", "letter.html", LETTER, title="2")
+        self.doc = createContentInContainer(
+            self.portal, "dmsdocument", title="Building permit"
+        )
+        self.version1 = add_file(
+            self.doc, "dmsmainfile", "letter.html", LETTER, title="1"
+        )
+        self.appendix = add_file(
+            self.doc, "dmsappendixfile", "plan.html", PLAN, title="Plan"
+        )
+        self.version2 = add_file(
+            self.doc, "dmsmainfile", "letter.html", LETTER, title="2"
+        )
 
     def table(self, klass=VersionsTable, portal_type="dmsmainfile"):
         """The table as its viewlet updates it."""
@@ -49,11 +56,19 @@ class TestVersionsTable(ListingTestCase):
     def test_values(self):
         table = self.table()
         # the latest version first
-        self.assertEqual([item.getObject() for item in table.values], [self.version2, self.version1])
-        self.assertIsInstance(table.values[0], CategorizedContent)
-        self.assertEqual(table.cssClasses, {"table": "listing nosort dv iconified-listing"})
         self.assertEqual(
-            [item.getObject() for item in self.table(portal_type="dmsappendixfile").values], [self.appendix]
+            [item.getObject() for item in table.values], [self.version2, self.version1]
+        )
+        self.assertIsInstance(table.values[0], CategorizedContent)
+        self.assertEqual(
+            table.cssClasses, {"table": "listing nosort dv iconified-listing"}
+        )
+        self.assertEqual(
+            [
+                item.getObject()
+                for item in self.table(portal_type="dmsappendixfile").values
+            ],
+            [self.appendix],
         )
         # stored on the table
         add_file(self.doc, "dmsmainfile", "letter.html", LETTER, title="3")
@@ -75,7 +90,13 @@ class TestDmsAppendixTable(ListingTestCase):
         # the iconifiedcategory category and creation date columns are removed
         self.assertEqual([column.__name__ for column in self.table().columns], names)
         names.remove("dms.state")
-        self.assertEqual([column.__name__ for column in self.table(DmsAppendixTable, "dmsappendixfile").columns], names)
+        self.assertEqual(
+            [
+                column.__name__
+                for column in self.table(DmsAppendixTable, "dmsappendixfile").columns
+            ],
+            names,
+        )
 
 
 class TestVersionsTitleColumn(ListingTestCase):
@@ -88,13 +109,16 @@ class TestVersionsTitleColumn(ListingTestCase):
         notify(ObjectModifiedEvent(self.version2))
         item = self.table().values[0]
         # Plone 4 bug: not registered since the iconified table refactor, the iconifiedcategory title column is used
-        self.assertNotIsInstance(self.column(table, "title-column"), VersionsTitleColumn)
+        self.assertNotIsInstance(
+            self.column(table, "title-column"), VersionsTitleColumn
+        )
         column = VersionsTitleColumn(self.doc, self.request, table)
         self.assertEqual(
             column.renderCell(item),
             '<a class="version-link" href="%s" alt="2 &lt;signed&gt;" title="2 &lt;signed&gt;">'
             '<img src="%s" alt="Default Category" title="Default Category" /> 2 &lt;signed&gt;</a>'
-            '<p class="discreet">Sent &amp; signed</p>' % (self.version2.absolute_url(), item.icon_url),
+            '<p class="discreet">Sent &amp; signed</p>'
+            % (self.version2.absolute_url(), item.icon_url),
         )
 
 

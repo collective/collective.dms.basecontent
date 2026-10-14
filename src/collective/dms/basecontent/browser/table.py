@@ -10,7 +10,6 @@ from zope.interface import alsoProvides
 
 import datetime
 
-
 PMF = MessageFactory("plone")
 
 
@@ -72,7 +71,7 @@ class Table(CategorizedTable):
 
         isSelected = self.isSelectedRow(row)
         if isSelected and self.cssClassSelected and cssClass:
-            cssClass = "%s %s" % (self.cssClassSelected, cssClass)
+            cssClass = f"{self.cssClassSelected} {cssClass}"
         elif isSelected and self.cssClassSelected:
             cssClass = self.cssClassSelected
         cells = [self.renderCell(item, col, colspan) for item, col, colspan in row]
@@ -85,4 +84,4 @@ class Table(CategorizedTable):
                 cssClass += " row-state-%s" % state_value
 
         cssClass = self.getCSSClass("tr", cssClass)
-        return "\n    <tr%s>%s\n    </tr>" % (cssClass, "".join(cells))
+        return "\n    <tr{}>{}\n    </tr>".format(cssClass, "".join(cells))

@@ -1,8 +1,5 @@
-.. image:: https://github.com/collective/collective.dms.basecontent/actions/workflows/main.yml/badge.svg?branch=master
-    :target: https://github.com/collective/collective.dms.basecontent/actions/workflows/main.yml
-
-.. image:: https://coveralls.io/repos/github/collective/collective.dms.basecontent/badge.svg
-    :target: https://coveralls.io/github/collective/collective.dms.basecontent
+.. image:: https://github.com/collective/collective.dms.basecontent/actions/workflows/meta.yml/badge.svg?branch=master
+    :target: https://github.com/collective/collective.dms.basecontent/actions/workflows/meta.yml
 
 .. image:: http://img.shields.io/pypi/v/collective.dms.basecontent.svg
    :alt: PyPI badge
@@ -23,7 +20,7 @@ Features
 The dmsdocument view is divided in 2 columns:
 
 - left column displays metadata
-- rigth column displays a documentviewer image of the dmsmailfile content
+- right column displays a documentviewer image of the dmsmailfile content
 
 Migration
 ---------

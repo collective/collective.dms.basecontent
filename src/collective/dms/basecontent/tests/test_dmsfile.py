@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collective.dms.basecontent.dmsfile import DmsAppendixFileSchemaPolicy
 from collective.dms.basecontent.dmsfile import DmsFileSchemaPolicy
 from collective.dms.basecontent.dmsfile import IDmsAppendixFile
@@ -66,7 +65,10 @@ class TestDmsFileSchemaPolicy(DmsFileTestCase):
 class TestDmsAppendixFileSchemaPolicy(DmsFileTestCase):
 
     def test_bases(self):
-        self.assertEqual(DmsAppendixFileSchemaPolicy().bases("dmsappendixfile", None), (IDmsAppendixFile,))
+        self.assertEqual(
+            DmsAppendixFileSchemaPolicy().bases("dmsappendixfile", None),
+            (IDmsAppendixFile,),
+        )
         schema = getUtility(IDexterityFTI, name="dmsappendixfile").lookupSchema()
         self.assertTrue(schema.isOrExtends(IDmsAppendixFile))
         self.assertFalse(schema.isOrExtends(IDmsFile))

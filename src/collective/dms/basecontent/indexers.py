@@ -31,7 +31,10 @@ def document_dynamic_searchable_text_indexer(obj):
             # convert it to text/plain
             try:
                 datastream = transforms.convertTo(
-                    "text/plain", child.file.data, mimetype=child.file.contentType, filename=child.file.filename
+                    "text/plain",
+                    child.file.data,
+                    mimetype=child.file.contentType,
+                    filename=child.file.filename,
                 )
                 indexed_elements.append(safe_text(datastream.getData()))
             except (ConflictError, KeyboardInterrupt):

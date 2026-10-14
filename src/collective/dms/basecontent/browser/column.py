@@ -6,7 +6,6 @@ from zope.i18nmessageid import MessageFactory
 
 import Missing
 
-
 PMF = MessageFactory("plone")
 
 

@@ -1,4 +1,6 @@
-from collective.iconifiedcategory.vocabularies import CategoryVocabulary as BaseCategoryVocabulary
+from collective.iconifiedcategory.vocabularies import (
+    CategoryVocabulary as BaseCategoryVocabulary,
+)
 from plone import api
 from plone.namedfile import NamedBlobImage
 from plone.protect.interfaces import IDisableCSRFProtection
@@ -12,7 +14,7 @@ class CategoryVocabulary(BaseCategoryVocabulary):
 
     def _get_categories(self, context, only_enabled=True):
         try:
-            categories = super(CategoryVocabulary, self)._get_categories(context, only_enabled=only_enabled)
+            categories = super()._get_categories(context, only_enabled=only_enabled)
         except ValueError:
             categories = [self.create_default_category()]
         return categories
@@ -41,7 +43,9 @@ class CategoryVocabulary(BaseCategoryVocabulary):
             safe_id=True,
         )
 
-        with open(os.path.join(os.path.dirname(__file__), "tests", "icon.png"), "rb") as fl:
+        with open(
+            os.path.join(os.path.dirname(__file__), "tests", "icon.png"), "rb"
+        ) as fl:
             icon = NamedBlobImage(fl.read(), filename="icon.png")
         cc = api.content.create(
             type="ContentCategory",

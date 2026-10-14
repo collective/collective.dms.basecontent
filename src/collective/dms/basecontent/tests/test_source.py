@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collective.dms.basecontent.source import CategoryVocabulary
 from collective.dms.basecontent.testing import DMS_TESTS_PROFILE_FUNCTIONAL
 from plone import api
@@ -28,22 +27,36 @@ class SourceTestCase(unittest.TestCase):
 class TestCategoryVocabulary(SourceTestCase):
 
     def test__get_categories(self):
-        factory = getUtility(IVocabularyFactory, "collective.iconifiedcategory.categories")
+        factory = getUtility(
+            IVocabularyFactory, "collective.iconifiedcategory.categories"
+        )
         self.assertIsInstance(factory, CategoryVocabulary)
         # no config: a default category is created
         self.assertNotIn("contentcategory-configuration", self.portal)
         categories = CategoryVocabulary()._get_categories(self.doc)
         self.assertEqual(
             [c.absolute_url_path() for c in categories],
-            ["/plone/contentcategory-configuration/default-category-group/default-category"],
+            [
+                "/plone/contentcategory-configuration/default-category-group/default-category"
+            ],
         )
         # the existing config is used
         self.assertEqual(CategoryVocabulary()._get_categories(self.doc), categories)
-        self.assertEqual(self.portal["contentcategory-configuration"].objectIds(), ["default-category-group"])
-        vocabulary = getUtility(IVocabularyFactory, "collective.iconifiedcategory.categories")(self.doc)
+        self.assertEqual(
+            self.portal["contentcategory-configuration"].objectIds(),
+            ["default-category-group"],
+        )
+        vocabulary = getUtility(
+            IVocabularyFactory, "collective.iconifiedcategory.categories"
+        )(self.doc)
         self.assertEqual(
             [(t.token, t.title) for t in vocabulary],
-            [("plone-contentcategory-configuration_-_default-category-group_-_default-category", "Default Category")],
+            [
+                (
+                    "plone-contentcategory-configuration_-_default-category-group_-_default-category",
+                    "Default Category",
+                )
+            ],
         )
 
     def test_create_default_category(self):
@@ -65,8 +78,13 @@ class TestCategoryVocabulary(SourceTestCase):
         transaction.commit()
         browser = Browser(self.layer["app"])
         browser.handleErrors = False
-        browser.addHeader("Authorization", "Basic %s:%s" % (SITE_OWNER_NAME, SITE_OWNER_PASSWORD))
+        browser.addHeader(
+            "Authorization", f"Basic {SITE_OWNER_NAME}:{SITE_OWNER_PASSWORD}"
+        )
         browser.open(self.doc.absolute_url() + "/++add++dmsmainfile")
         self.assertNotIn("Confirming User Action", browser.contents)
         self.assertIn('id="form-widgets-title"', browser.contents)
-        self.assertIn("default-category", self.portal["contentcategory-configuration"]["default-category-group"])
+        self.assertIn(
+            "default-category",
+            self.portal["contentcategory-configuration"]["default-category-group"],
+        )

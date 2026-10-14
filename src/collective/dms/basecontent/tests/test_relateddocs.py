@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collective.dms.basecontent.dmsdocument import IDmsDocument
 from collective.dms.basecontent.relateddocs import RelatedDocsFieldWidget
 from collective.dms.basecontent.relateddocs import RelatedDocsWidget
@@ -40,7 +39,9 @@ class RelatedDocsTestCase(unittest.TestCase):
 
     def relate(self, source, *targets):
         intids = getUtility(IIntIds)
-        source.related_docs = [RelationValue(intids.getId(target)) for target in targets]
+        source.related_docs = [
+            RelationValue(intids.getId(target)) for target in targets
+        ]
         notify(ObjectModifiedEvent(source))
 
     def widget(self, doc, view_name="view"):
@@ -57,7 +58,10 @@ class TestRelatedDocsWidget(RelatedDocsTestCase):
         # display mode: the links, also for a document with only back references
         self.assertIsInstance(self.widget(self.doc1), RelatedDocsWidget)
         self.assertTrue(self.widget(self.doc1).display_backrefs)
-        self.assertIn('<a href="%s">Doc 1</a>' % self.doc1.absolute_url(), self.widget(self.doc2).render())
+        self.assertIn(
+            '<a href="%s">Doc 1</a>' % self.doc1.absolute_url(),
+            self.widget(self.doc2).render(),
+        )
         self.assertNotIn("<a ", self.widget(self.doc4).render())
         # input mode: the plone.app.z3cform related items widget, without back references
         widget = self.widget(self.doc2, "@@edit")
@@ -78,18 +82,27 @@ class TestRelatedDocsWidget(RelatedDocsTestCase):
             self.widget(self.doc1).tuples(),
             [(self.doc2.absolute_url(), "Doc 2"), (self.doc3.absolute_url(), "Doc 3")],
         )
-        self.assertEqual(self.widget(self.doc2).tuples(), [(self.doc1.absolute_url(), "Doc 1")])
+        self.assertEqual(
+            self.widget(self.doc2).tuples(), [(self.doc1.absolute_url(), "Doc 1")]
+        )
         self.assertEqual(self.widget(self.doc4).tuples(), [])
         # a mutual reference is listed once
         self.relate(self.doc2, self.doc1)
-        self.assertEqual(self.widget(self.doc2).tuples(), [(self.doc1.absolute_url(), "Doc 1")])
+        self.assertEqual(
+            self.widget(self.doc2).tuples(), [(self.doc1.absolute_url(), "Doc 1")]
+        )
         # back references from documents the user cannot view are hidden (doc3 is private, as a workflow sets it)
         self.doc3.manage_permission("View", ["Manager"], acquire=False)
         setRoles(self.portal, TEST_USER_ID, ["Member"])
         login(self.portal, TEST_USER_NAME)
-        self.assertEqual(self.widget(self.doc1).tuples(), [(self.doc2.absolute_url(), "Doc 2")])
+        self.assertEqual(
+            self.widget(self.doc1).tuples(), [(self.doc2.absolute_url(), "Doc 2")]
+        )
         # the document view lists the links, although the field of doc2 is empty
-        self.assertIn('<a href="%s">Doc 1</a>' % self.doc1.absolute_url(), self.doc2.restrictedTraverse("@@view")())
+        self.assertIn(
+            '<a href="%s">Doc 1</a>' % self.doc1.absolute_url(),
+            self.doc2.restrictedTraverse("@@view")(),
+        )
 
 
 class TestRelateddocs(RelatedDocsTestCase):

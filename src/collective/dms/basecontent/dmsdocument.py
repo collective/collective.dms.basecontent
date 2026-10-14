@@ -33,14 +33,18 @@ class IDmsDocument(model.Schema):
     recipient_groups = LocalRolesField(
         title=_("Recipient groups"),
         required=False,
-        value_type=schema.Choice(vocabulary="collective.dms.basecontent.recipient_groups"),
+        value_type=schema.Choice(
+            vocabulary="collective.dms.basecontent.recipient_groups"
+        ),
     )
     form.widget(recipient_groups=Select2FieldWidget)
 
     related_docs = RelationList(
         title=_("Related documents"),
         # value_type=RelationChoice(title=u"", source=CatalogSource(portal_type="dmsdocument")),
-        value_type=RelationChoice(title="", vocabulary="plone.app.vocabularies.Catalog"),
+        value_type=RelationChoice(
+            title="", vocabulary="plone.app.vocabularies.Catalog"
+        ),
         required=False,
     )
     form.widget("related_docs", RelatedDocsFieldWidget)

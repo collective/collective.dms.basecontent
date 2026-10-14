@@ -1,4 +1,3 @@
-# coding=utf-8
 from BTrees.Length import Length
 from collective.dms.basecontent import _
 from imio.annex.content.annex import Annex
@@ -26,7 +25,9 @@ def titleDefaultValue(container):
 class IDmsFile(IAnnex):
     """Schema for DmsFile"""
 
-    title = schema.TextLine(title=_("Version number"), required=False, defaultFactory=titleDefaultValue)
+    title = schema.TextLine(
+        title=_("Version number"), required=False, defaultFactory=titleDefaultValue
+    )
 
     form.mode(label="hidden")
     label = schema.TextLine(

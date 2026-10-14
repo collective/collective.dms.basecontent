@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collective.dms.basecontent.browser.listing import DmsAppendixTable
 from collective.dms.basecontent.browser.listing import VersionsTable
 from collective.dms.basecontent.browser.viewlets import AppendixViewlet
@@ -32,12 +31,16 @@ class ViewletsTestCase(unittest.TestCase):
         self.portal = self.layer["portal"]
         self.request = self.layer["request"]
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
-        self.doc = createContentInContainer(self.portal, "dmsdocument", title="Building permit")
+        self.doc = createContentInContainer(
+            self.portal, "dmsdocument", title="Building permit"
+        )
         self.view = self.doc.restrictedTraverse("@@view")
 
     def viewlet(self, manager_name, name):
         """The viewlet as the document view gets it from its manager."""
-        manager = getMultiAdapter((self.doc, self.request, self.view), IViewletManager, name=manager_name)
+        manager = getMultiAdapter(
+            (self.doc, self.request, self.view), IViewletManager, name=manager_name
+        )
         manager.update()
         return [viewlet for viewlet in manager.viewlets if viewlet.__name__ == name][0]
 
@@ -59,14 +62,20 @@ class TestVersionsViewlet(ViewletsTestCase):
         self.assertTrue(IDmsAboveContent.providedBy(viewlet.manager))
         self.assertEqual(
             viewlet.contentFilter(),
-            {"portal_type": "dmsmainfile", "sort_on": "getObjPositionInParent", "sort_order": "descending"},
+            {
+                "portal_type": "dmsmainfile",
+                "sort_on": "getObjPositionInParent",
+                "sort_order": "descending",
+            },
         )
 
     def test_render(self):
         # with versions: see test_documentviewer (the latest version is shown in the viewer)
         viewlet = self.viewlet("dms.abovecontent", "dms.files")
         rendered = viewlet.render()
-        self.assertIn('<div id="fieldset-versions" style="float:right; width: 50%;">', rendered)
+        self.assertIn(
+            '<div id="fieldset-versions" style="float:right; width: 50%;">', rendered
+        )
         self.assertIn("Versions", rendered)
         self.assertIn("There is no version note for this document.", rendered)
         self.assertNotIn("<table", rendered)
@@ -78,13 +87,19 @@ class TestVersionsViewlet(ViewletsTestCase):
         viewlet = self.viewlet("dms.abovecontent", "dms.files")
         self.assertIsNone(viewlet.first_appendix())
         # without version, the first appendix (shown in the viewer instead of the latest version)
-        first = add_file(self.doc, "dmsappendixfile", "plan.html", PLAN, title="Ground floor plan")
-        add_file(self.doc, "dmsappendixfile", "plan.html", PLAN, title="First floor plan")
+        first = add_file(
+            self.doc, "dmsappendixfile", "plan.html", PLAN, title="Ground floor plan"
+        )
+        add_file(
+            self.doc, "dmsappendixfile", "plan.html", PLAN, title="First floor plan"
+        )
         viewlet = self.viewlet("dms.abovecontent", "dms.files")
         self.assertEqual(viewlet.first_appendix().getObject(), first)
         # none when there is a version
         add_file(self.doc, "dmsmainfile", "letter.html", LETTER, title="1")
-        self.assertIsNone(self.viewlet("dms.abovecontent", "dms.files").first_appendix())
+        self.assertIsNone(
+            self.viewlet("dms.abovecontent", "dms.files").first_appendix()
+        )
 
 
 class TestAppendixViewlet(ViewletsTestCase):
@@ -96,19 +111,31 @@ class TestAppendixViewlet(ViewletsTestCase):
         self.assertIsInstance(viewlet.table, DmsAppendixTable)
         self.assertEqual(
             viewlet.contentFilter(),
-            {"portal_type": "dmsappendixfile", "sort_on": "getObjPositionInParent", "sort_order": "ascending"},
+            {
+                "portal_type": "dmsappendixfile",
+                "sort_on": "getObjPositionInParent",
+                "sort_order": "ascending",
+            },
         )
 
     def test_render(self):
         # nothing without appendix
-        self.assertEqual(self.viewlet("dms.belowcontent", "dms.appendix").render().strip(), "")
-        add_file(self.doc, "dmsappendixfile", "plan.html", PLAN, title="First floor plan")
-        add_file(self.doc, "dmsappendixfile", "plan.html", PLAN, title="Ground floor plan")
+        self.assertEqual(
+            self.viewlet("dms.belowcontent", "dms.appendix").render().strip(), ""
+        )
+        add_file(
+            self.doc, "dmsappendixfile", "plan.html", PLAN, title="First floor plan"
+        )
+        add_file(
+            self.doc, "dmsappendixfile", "plan.html", PLAN, title="Ground floor plan"
+        )
         rendered = self.viewlet("dms.belowcontent", "dms.appendix").render()
         self.assertIn("<legend>Appendix</legend>", rendered)
         self.assertNotIn("th_header_dms.state", rendered)
         # the latest first, like the versions
-        self.assertLess(rendered.index("Ground floor plan"), rendered.index("First floor plan"))
+        self.assertLess(
+            rendered.index("Ground floor plan"), rendered.index("First floor plan")
+        )
 
 
 class TestChangeTitleViewlet(ViewletsTestCase):
@@ -116,10 +143,19 @@ class TestChangeTitleViewlet(ViewletsTestCase):
     def test_render(self):
         rendered = ChangeTitleViewlet(self.doc, self.request, self.view, None).render()
         self.assertIn(
-            "$(\"body.template-dmsincomingmail label[for='form-widgets-IDublinCore-title']\").text('Objet');", rendered
+            "$(\"body.template-dmsincomingmail label[for='form-widgets-IDublinCore-title']\").text('Objet');",
+            rendered,
         )
         # its registration is commented out
-        manager = getMultiAdapter((self.doc, self.request, self.view), IHtmlHeadLinks, name="plone.htmlhead.links")
+        manager = getMultiAdapter(
+            (self.doc, self.request, self.view),
+            IHtmlHeadLinks,
+            name="plone.htmlhead.links",
+        )
         self.assertIsNone(
-            queryMultiAdapter((self.doc, self.request, self.view, manager), IViewlet, name="dms.changetitle")
+            queryMultiAdapter(
+                (self.doc, self.request, self.view, manager),
+                IViewlet,
+                name="dms.changetitle",
+            )
         )

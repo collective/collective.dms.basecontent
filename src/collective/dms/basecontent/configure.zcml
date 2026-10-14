@@ -1,9 +1,10 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:zcml="http://namespaces.zope.org/zcml"
-    i18n_domain="collective.dms.basecontent">
+    i18n_domain="collective.dms.basecontent"
+    >
 
   <include package=".upgrades" />
 
@@ -13,7 +14,10 @@
   <include package="plone.app.dexterity" />
   <include package="plone.app.relationfield" />
   <include package="plone.supermodel" />
-  <include package="collective.documentviewer" zcml:condition="installed collective.documentviewer" />
+  <include
+      package="collective.documentviewer"
+      zcml:condition="installed collective.documentviewer"
+      />
   <include package="dexterity.localrolesfield" />
   <include package="collective.externaleditor" />
   <include package="collective.iconifiedcategory" />
@@ -25,9 +29,9 @@
   <genericsetup:registerProfile
       name="default"
       title="collective.dms.basecontent"
-      directory="profiles/default"
       description="Installs the collective.dms.basecontent package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/default"
       />
 
   <!-- import steps -->
@@ -35,8 +39,9 @@
       name="collective.dms.basecontent-final"
       title="collective.dms.basecontent final step"
       description="collective.dms.basecontent final step"
-      handler="collective.dms.basecontent.setuphandlers.importFinalSteps">
-    <depends name="plone-final"/>
+      handler="collective.dms.basecontent.setuphandlers.importFinalSteps"
+      >
+    <depends name="plone-final" />
   </genericsetup:importStep>
 
   <utility
@@ -54,49 +59,50 @@
       name="schema_policy_dmsappendixfile"
       />
 
-    <!-- indexers -->
-    <adapter
-        name="treating_groups"
-        factory=".indexers.treating_groups_indexer"
-        />
+  <!-- indexers -->
+  <adapter
+      factory=".indexers.treating_groups_indexer"
+      name="treating_groups"
+      />
 
-    <adapter
-        name="recipient_groups"
-        factory=".indexers.recipient_groups_indexer"
-        />
+  <adapter
+      factory=".indexers.recipient_groups_indexer"
+      name="recipient_groups"
+      />
 
-    <adapter
-        name="SearchableText"
-        factory=".indexers.document_dynamic_searchable_text_indexer"
-        />
+  <adapter
+      factory=".indexers.document_dynamic_searchable_text_indexer"
+      name="SearchableText"
+      />
 
-    <!--vocabularies-->
-    <utility
-        name="collective.dms.basecontent.treating_groups"
-        factory="plone.app.vocabularies.principals.GroupsFactory"
-        />
+  <!--vocabularies-->
+  <utility
+      factory="plone.app.vocabularies.principals.GroupsFactory"
+      name="collective.dms.basecontent.treating_groups"
+      />
 
-    <utility
-        name="collective.dms.basecontent.recipient_groups"
-        factory="plone.app.vocabularies.principals.GroupsFactory"
-        />
+  <utility
+      factory="plone.app.vocabularies.principals.GroupsFactory"
+      name="collective.dms.basecontent.recipient_groups"
+      />
 
-    <unconfigure package="collective.iconifiedcategory">
-        <utility
-            name="collective.iconifiedcategory.categories"
-            provides="zope.schema.interfaces.IVocabularyFactory"
-            />
-    </unconfigure>
+  <unconfigure package="collective.iconifiedcategory">
     <utility
         provides="zope.schema.interfaces.IVocabularyFactory"
         name="collective.iconifiedcategory.categories"
-        factory="collective.dms.basecontent.source.CategoryVocabulary" />
-
-    <!--various-->
-    <subscriber
-        for="collective.dms.basecontent.dmsfile.IDmsFile
-             zope.lifecycleevent.interfaces.IObjectAddedEvent"
-        handler=".dmsfile.update_higher_version"
         />
+  </unconfigure>
+  <utility
+      factory="collective.dms.basecontent.source.CategoryVocabulary"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="collective.iconifiedcategory.categories"
+      />
+
+  <!--various-->
+  <subscriber
+      for="collective.dms.basecontent.dmsfile.IDmsFile
+           zope.lifecycleevent.interfaces.IObjectAddedEvent"
+      handler=".dmsfile.update_higher_version"
+      />
 
 </configure>

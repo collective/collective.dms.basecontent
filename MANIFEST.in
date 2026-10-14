@@ -1,4 +1,8 @@
-recursive-include src *
-recursive-include docs *
-include *
-global-exclude *pyc
+graft src/collective
+graft docs
+include *.cfg *.rst *.in Makefile mx.ini requirements*.txt
+exclude *-mxdev.txt
+exclude .coveragerc
+exclude .installed.cfg
+exclude .mr.developer.cfg
+global-exclude *.pyc

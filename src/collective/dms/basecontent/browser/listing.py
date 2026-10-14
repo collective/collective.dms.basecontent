@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collective.dms.basecontent import _
 from collective.dms.basecontent.browser import column
 from collective.dms.basecontent.browser.table import Table as BaseTable
@@ -9,7 +8,6 @@ from plone.base.utils import safe_text
 from zope.i18nmessageid import MessageFactory
 
 import html
-
 
 PMF = MessageFactory("plone")
 
@@ -36,7 +34,7 @@ class VersionsTable(BaseTable):
 
 class DmsAppendixTable(VersionsTable):
     def setUpColumns(self):
-        columns = super(DmsAppendixTable, self).setUpColumns()
+        columns = super().setUpColumns()
         return [column for column in columns if column.__name__ != "dms.state"]
 
 

@@ -1,4 +1,6 @@
-from collective.externaleditor.browser.views import ExternalEditorEnabledView as BaseExternalEditorEnabledView
+from collective.externaleditor.browser.views import (
+    ExternalEditorEnabledView as BaseExternalEditorEnabledView,
+)
 from plone.dexterity.browser.edit import DefaultEditForm
 from plone.dexterity.browser.view import DefaultView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -6,10 +8,11 @@ from zope.component import getMultiAdapter
 
 import os
 
-
 try:
     from collective.documentviewer.browser.views import DocumentViewerView
-except ImportError:  # collective.documentviewer is not available on Plone 6.2 (replaced, viewer not decided)
+except (
+    ImportError
+):  # collective.documentviewer is not available on Plone 6.2 (replaced, viewer not decided)
     DocumentViewerView = None
 
 
@@ -18,7 +21,7 @@ if DocumentViewerView is not None:
     class VersionViewerView(DocumentViewerView):
         def index(self):
             self.table = self.context.restrictedTraverse("@@iconifiedcategory_table")
-            return super(VersionViewerView, self).index()
+            return super().index()
 
     class JSONVersionViewerView(DocumentViewerView):
         def index(self):
@@ -28,8 +31,10 @@ if DocumentViewerView is not None:
 
 class DmsDocumentView(DefaultView):
     def update(self):
-        super(DmsDocumentView, self).update()
-        self.portal_url = getMultiAdapter((self.context, self.request), name="plone_portal_state").portal_url()
+        super().update()
+        self.portal_url = getMultiAdapter(
+            (self.context, self.request), name="plone_portal_state"
+        ).portal_url()
         self.dvstatic = "%s/++resource++dv.resources" % (self.portal_url)
 
     def legend_extra(self, group):
@@ -42,8 +47,10 @@ class DmsDocumentEdit(DefaultEditForm):
     enable_form_tabbing = False
 
     def update(self):
-        super(DmsDocumentEdit, self).update()
-        self.portal_url = getMultiAdapter((self.context, self.request), name="plone_portal_state").portal_url()
+        super().update()
+        self.portal_url = getMultiAdapter(
+            (self.context, self.request), name="plone_portal_state"
+        ).portal_url()
         self.dvstatic = "%s/++resource++dv.resources" % (self.portal_url)
 
 
@@ -56,4 +63,4 @@ class ExternalEditorEnabledView(BaseExternalEditorEnabledView):
         if ext in (".pdf", ".jpg", ".jpeg"):
             return False
 
-        return super(ExternalEditorEnabledView, self).available(bypasslock=bypasslock)
+        return super().available(bypasslock=bypasslock)

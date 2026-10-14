@@ -1,4 +1,3 @@
-# -*- coding: utf8 -*-
 from plone import api
 from plone.app.robotframework.content import Content
 from plone.app.robotframework.remote import RemoteLibraryLayer
@@ -11,7 +10,6 @@ from plone.testing.zope import WSGI_SERVER_FIXTURE
 from zope.globalrequest import setLocal
 
 import collective.dms.basecontent
-
 
 DMS = PloneWithPackageLayer(
     zcml_filename="testing.zcml",
@@ -31,7 +29,7 @@ class DmsLayer(PloneWithPackageLayer):
         portal.portal_registration.addMember(id="siteadmin", password="SiteAdm!n0")
         api.group.add_user(groupname="Administrators", username="siteadmin")
         setLocal("request", portal.REQUEST)
-        super(DmsLayer, self).setUpPloneSite(portal)
+        super().setUpPloneSite(portal)
 
 
 DMS_TESTS_PROFILE = DmsLayer(
@@ -44,7 +42,9 @@ DMS_TESTS_PROFILE = DmsLayer(
     name="DMS_TESTS_PROFILE",
 )
 
-DMS_TESTS_PROFILE_FUNCTIONAL = FunctionalTesting(bases=(DMS_TESTS_PROFILE,), name="DMS_TESTS_PROFILE_FUNCTIONAL")
+DMS_TESTS_PROFILE_FUNCTIONAL = FunctionalTesting(
+    bases=(DMS_TESTS_PROFILE,), name="DMS_TESTS_PROFILE_FUNCTIONAL"
+)
 
 
 class CSRFSafeContent(Content):
@@ -52,17 +52,19 @@ class CSRFSafeContent(Content):
 
     def set_field_value(self, uid, field, value, field_type):
         disableCSRFProtection()
-        return super(CSRFSafeContent, self).set_field_value(uid, field, value, field_type)
+        return super().set_field_value(uid, field, value, field_type)
 
 
 REMOTE_LIBRARY_FIXTURE = RemoteLibraryLayer(
     bases=(PLONE_FIXTURE,),
     libraries=tuple(
-        CSRFSafeContent if lib is Content else lib for lib in REMOTE_LIBRARY_BUNDLE_FIXTURE.libraryBases[1:]
+        CSRFSafeContent if lib is Content else lib
+        for lib in REMOTE_LIBRARY_BUNDLE_FIXTURE.libraryBases[1:]
     ),
     name="RemoteLibraryBundle:RobotRemote",
 )
 
 ACCEPTANCE = FunctionalTesting(
-    bases=(DMS_TESTS_PROFILE, REMOTE_LIBRARY_FIXTURE, WSGI_SERVER_FIXTURE), name="ACCEPTANCE"
+    bases=(DMS_TESTS_PROFILE, REMOTE_LIBRARY_FIXTURE, WSGI_SERVER_FIXTURE),
+    name="ACCEPTANCE",
 )

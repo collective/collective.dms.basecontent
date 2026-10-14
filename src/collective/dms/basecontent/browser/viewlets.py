@@ -26,7 +26,11 @@ class BaseViewlet(TableViewlet):
         }
 
 
-APPENDIX_FILTER = {"portal_type": "dmsappendixfile", "sort_on": "getObjPositionInParent", "sort_order": "ascending"}
+APPENDIX_FILTER = {
+    "portal_type": "dmsappendixfile",
+    "sort_on": "getObjPositionInParent",
+    "sort_order": "ascending",
+}
 
 
 class VersionsViewlet(BaseViewlet):
@@ -37,7 +41,11 @@ class VersionsViewlet(BaseViewlet):
     has_viewer = DocumentViewerView is not None
 
     def contentFilter(self):
-        return {"portal_type": self.portal_type, "sort_on": "getObjPositionInParent", "sort_order": "descending"}
+        return {
+            "portal_type": self.portal_type,
+            "sort_on": "getObjPositionInParent",
+            "sort_order": "descending",
+        }
 
     def first_appendix(self):
         if len(self.table.values) > 0:

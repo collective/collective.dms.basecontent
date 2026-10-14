@@ -17,27 +17,35 @@ class RelatedDocsWidget(RelatedItemsWidget):
     display_backrefs = True
 
     def update(self):
-        super(RelatedDocsWidget, self).update()
+        super().update()
         if self.mode == DISPLAY_MODE:
             # added in every mode by plone.app.z3cform: mockup would hide the links behind an empty widget
-            self.klass = " ".join(c for c in self.klass.split() if c != "pat-relateditems")
+            self.klass = " ".join(
+                c for c in self.klass.split() if c != "pat-relateditems"
+            )
 
     def render(self):
         if self.mode == DISPLAY_MODE:
             return self.display_template(self)
-        return super(RelatedDocsWidget, self).render()
+        return super().render()
 
     def tuples(self):
         """(url, title) of the viewable related objects, then of the back references."""
         sm = getSecurityManager()
-        objs = [rel.to_object for rel in getattr(self.context, self.field.__name__, None) or []]
+        objs = [
+            rel.to_object
+            for rel in getattr(self.context, self.field.__name__, None) or []
+        ]
         if self.display_backrefs:
             try:
                 doc_intid = getUtility(IIntIds).getId(self.context)
             except KeyError:
                 pass
             else:
-                objs += [rel.from_object for rel in getUtility(ICatalog).findRelations({"to_id": doc_intid})]
+                objs += [
+                    rel.from_object
+                    for rel in getUtility(ICatalog).findRelations({"to_id": doc_intid})
+                ]
         refs = []
         for obj in objs:
             if obj is None or not sm.checkPermission("View", obj):

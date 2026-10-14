@@ -16,6 +16,8 @@ Changelog
   [chris-adam]
 - Fixed the related documents links hidden in display mode by the related items pattern (Plone 6.2).
   [chris-adam]
+- Added plone.meta configuration (tox, pre-commit, GitHub Actions).
+  [chris-adam]
 
 
 2.0.3 (2026-03-26)
@@ -99,7 +101,7 @@ Changelog
 1.7 (2022-06-21)
 ----------------
 
-- Updated columns to work with z3c.table 2.2. Escaped rendering special caracters to avoid xss.
+- Updated columns to work with z3c.table 2.2. Escaped rendering special characters to avoid xss.
   [sgeulette]
 
 1.6 (2021-04-20)
