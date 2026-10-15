@@ -37,7 +37,7 @@ setup(
     ],
     keywords="document management system dms viewer",
     author="Ecreall, Entrouvert, IMIO",
-    author_email="support@imio.be",
+    author_email="support-docs@imio.be",
     project_urls={
         "PyPI": "https://pypi.org/project/collective.dms.basecontent",
         "Source": "https://github.com/collective/collective.dms.basecontent",
