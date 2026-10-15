@@ -1,6 +1,12 @@
-def setup_documentviewer(portal):
+try:
     from collective.documentviewer.settings import GlobalSettings
+except ImportError:  # collective.documentviewer is not available on Plone 6.2
+    GlobalSettings = None
 
+
+def setup_documentviewer(portal):
+    if GlobalSettings is None:
+        return
     dv_settings = GlobalSettings(portal)
     dv_settings.auto_layout_file_types = ("pdf", "ppt", "word", "rft")
     dv_settings.auto_convert = True
@@ -12,21 +18,21 @@ def setup_externaleditor(portal):
     from plone import api
 
     enabled_types = api.portal.get_registry_record(
-        'externaleditor.externaleditor_enabled_types',
-        default=[u'File', u'Image'],
+        "externaleditor.externaleditor_enabled_types",
+        default=["File", "Image"],
     )
 
-    if u'dmsappendixfile' not in enabled_types:
-        enabled_types.append(u'dmsappendixfile')
+    if "dmsappendixfile" not in enabled_types:
+        enabled_types.append("dmsappendixfile")
         api.portal.set_registry_record(
-            'externaleditor.externaleditor_enabled_types',
+            "externaleditor.externaleditor_enabled_types",
             enabled_types,
         )
 
-    if u'dmsmainfile' not in enabled_types:
-        enabled_types.append(u'dmsmainfile')
+    if "dmsmainfile" not in enabled_types:
+        enabled_types.append("dmsmainfile")
         api.portal.set_registry_record(
-            'externaleditor.externaleditor_enabled_types',
+            "externaleditor.externaleditor_enabled_types",
             enabled_types,
         )
 

@@ -1,10 +1,25 @@
 Changelog
 =========
 
-2.0.4 (unreleased)
+3.0.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Migrated to Plone 6.2, Python 3 only (Plone 4 support dropped), based on the work started by @sgeulette on `Plone61`.
+  [sgeulette, boulch, chris-adam]
+- Replaced RelatedDocs field widget by ContentBrowserWidgetFieldWidget.
+  [chris-adam]
+- Display the back references of related documents again (RelatedDocsWidget).
+  [chris-adam]
+- Fixed Plone 6.2 leftovers: SearchableText indexer on Python 3, action icons, batch integer division, select2 upgrade.
+  [chris-adam]
+- Fixed Plone 6.2 regressions found by the tests: default category created on a GET form, external edit action always shown, registry lists purged, versions table column order, edit form tabs hiding the fields.
+  [chris-adam]
+- Fixed the related documents links hidden in display mode by the related items pattern (Plone 6.2).
+  [chris-adam]
+- Added plone.meta configuration (tox, pre-commit, GitHub Actions).
+  [chris-adam]
+- Switched to PEP 420 native namespace packages.
+  [chris-adam]
 
 
 2.0.3 (2026-03-26)
@@ -88,7 +103,7 @@ Changelog
 1.7 (2022-06-21)
 ----------------
 
-- Updated columns to work with z3c.table 2.2. Escaped rendering special caracters to avoid xss.
+- Updated columns to work with z3c.table 2.2. Escaped rendering special characters to avoid xss.
   [sgeulette]
 
 1.6 (2021-04-20)

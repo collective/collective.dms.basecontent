@@ -2,18 +2,25 @@
 <fieldset>
   <legend i18n:translate=""
     tal:content="view/label">label</legend>
-    <tal:listing define="results view/table/values">
+    <tal:listing define="results view/table/values;">
       <tal:b condition="results">
         <table tal:replace="structure view/table/render" />
         <div tal:define="version python:results[0].getObject()"
-             tal:replace="structure version/@@versionviewer" />
+             tal:replace="structure version/@@versionviewer | nothing" />
       </tal:b>
-      <tal:b condition="not:results" replace="view/noresult_message" />
+      <tal:b condition="not:results">
+        <span tal:replace="view/noresult_message" />
+        <div tal:condition="first_appendix"
+             tal:define="first_appendix view/first_appendix;
+                         version python:first_appendix and first_appendix.getObject();"
+             tal:replace="structure version/@@versionviewer | nothing" />
+      </tal:b>
     </tal:listing>
 </fieldset>
-<script type="text/javascript">
+<script type="text/javascript" tal:condition="view/has_viewer">
 $(document).ready(function(){
     var initial_timeout = null;
+    documentviewer = document.querySelector('div.pat-documentviewer.DV-container');
 
     $('.version-link').closest('tr').bind('select-version', function() {
       /* a version has been selected, disable initial timeout */
@@ -25,10 +32,12 @@ $(document).ready(function(){
         // the version is already selected, no need to reload it
         return;
       }
-      var url = trigger.attr('href') + '/@@dvdata';
-      $.getJSON(url, function(data) {
-        window.documentData = data;
-        window.initializeDV();
+      var url = trigger.attr('href') + '/@@pattern-options';
+      $.getJSON(url, function(options) {
+        documentviewer = document.querySelector('div.pat-documentviewer.DV-container');
+        documentviewer.setAttribute('data-pat-documentviewer', JSON.stringify(options));
+        options.container = 'div.pat-documentviewer.DV-container';
+        DV.load(options.data, options);
         $('table.dv').find('tr').removeClass('selected');
         trigger.closest('tr').addClass('selected');
       });
@@ -40,12 +49,10 @@ $(document).ready(function(){
       $(".version-link:first").closest('tr').trigger('select-version');
     }
 
-    if (window.documentData && window.documentData.pages == null) {
+    if (documentviewer == null) {
       // the version was just added, update DV after 6s
       initial_timeout = setTimeout(async_load_dv, 6000);
     } else {
-      // window.documentData is already filled, we don't need to call @@dvdata
-      // So we mark it as selected before triggering the select-version event.
       $(".version-link:first").closest('tr').addClass('selected').trigger('select-version');
     }
 

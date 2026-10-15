@@ -1,51 +1,59 @@
 from collective.dms.basecontent import _
-from collective.dms.basecontent.relateddocs import RelatedDocs
-from collective.z3cform.select2.widget.widget import MultiSelect2FieldWidget
+from collective.dms.basecontent.relateddocs import RelatedDocsFieldWidget
 from dexterity.localrolesfield.field import LocalRolesField
 from imio.helpers.content import object_values
+from plone.app.z3cform.widgets.select import Select2FieldWidget
 from plone.autoform import directives as form
 from plone.dexterity.content import Container
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.supermodel import model
+from z3c.relationfield.schema import RelationChoice
+from z3c.relationfield.schema import RelationList
 from zope import schema
-from zope.interface import implements
+from zope.interface import implementer
 
 
 class IDmsDocument(model.Schema):
     """Schema for DmsDocument"""
 
     notes = schema.Text(
-        title=_(u"Notes"),
+        title=_("Notes"),
         required=False,
     )
 
     treating_groups = LocalRolesField(
-        title=_(u"Treating groups"),
+        title=_("Treating groups"),
         required=False,
         value_type=schema.Choice(
-            vocabulary=u"collective.dms.basecontent.treating_groups",
+            vocabulary="collective.dms.basecontent.treating_groups",
         ),
     )
-    # form.widget(treating_groups=MultiSelect2FieldWidget)
+    # form.widget(treating_groups=Select2FieldWidget)
 
     recipient_groups = LocalRolesField(
-        title=_(u"Recipient groups"),
+        title=_("Recipient groups"),
         required=False,
-        value_type=schema.Choice(vocabulary=u"collective.dms.basecontent.recipient_groups"),
+        value_type=schema.Choice(
+            vocabulary="collective.dms.basecontent.recipient_groups"
+        ),
     )
-    form.widget(recipient_groups=MultiSelect2FieldWidget)
+    form.widget(recipient_groups=Select2FieldWidget)
 
-    related_docs = RelatedDocs(
-        title=_(u"Related documents"),
+    related_docs = RelationList(
+        title=_("Related documents"),
+        # value_type=RelationChoice(title=u"", source=CatalogSource(portal_type="dmsdocument")),
+        value_type=RelationChoice(
+            title="", vocabulary="plone.app.vocabularies.Catalog"
+        ),
         required=False,
-        display_backrefs=True,
     )
+    form.widget("related_docs", RelatedDocsFieldWidget)
 
 
+@implementer(IDmsDocument)
 class DmsDocument(Container):
     """DmsDocument"""
 
-    implements(IDmsDocument)
     # disable local roles inheritance
     __ac_local_roles_block__ = True
 
