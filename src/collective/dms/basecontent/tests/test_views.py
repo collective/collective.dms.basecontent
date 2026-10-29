@@ -58,6 +58,9 @@ class TestDmsDocumentView(ViewsTestCase):
         # the fields, without title and description
         self.assertIn('id="form-widgets-notes"', rendered)
         self.assertIn('id="form-widgets-treating_groups"', rendered)
+        # no select2 pattern on the display span: mockup would raise "query function not defined"
+        self.assertIn('id="form-widgets-recipient_groups"', rendered)
+        self.assertNotIn("pat-select2", rendered)
         self.assertNotIn('id="form-widgets-IDublinCore-title"', rendered)
         self.assertNotIn('id="form-widgets-IDublinCore-description"', rendered)
         # the versions viewlet above, the appendix viewlet below

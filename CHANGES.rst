@@ -20,6 +20,8 @@ Changelog
   [chris-adam]
 - Switched to PEP 420 native namespace packages.
   [chris-adam]
+- Removed the select2 pattern class from the recipient groups display (mockup "query function not defined" error).
+  [chris-adam]
 
 
 2.0.3 (2026-03-26)

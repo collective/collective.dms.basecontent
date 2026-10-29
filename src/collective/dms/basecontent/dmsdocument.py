@@ -2,15 +2,33 @@ from collective.dms.basecontent import _
 from collective.dms.basecontent.relateddocs import RelatedDocsFieldWidget
 from dexterity.localrolesfield.field import LocalRolesField
 from imio.helpers.content import object_values
-from plone.app.z3cform.widgets.select import Select2FieldWidget
+from plone.app.z3cform.widgets.select import Select2Widget as BaseSelect2Widget
 from plone.autoform import directives as form
 from plone.dexterity.content import Container
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.supermodel import model
+from z3c.form.interfaces import DISPLAY_MODE
+from z3c.form.interfaces import IFieldWidget
+from z3c.form.widget import FieldWidget
 from z3c.relationfield.schema import RelationChoice
 from z3c.relationfield.schema import RelationList
 from zope import schema
 from zope.interface import implementer
+
+
+class Select2Widget(BaseSelect2Widget):
+    """Select2 widget without its pattern in display mode."""
+
+    def update(self):
+        super().update()
+        if self.mode == DISPLAY_MODE:
+            # added in every mode by plone.app.z3cform: mockup would initialise select2 on the display span
+            self.klass = " ".join(c for c in self.klass.split() if c != "pat-select2")
+
+
+@implementer(IFieldWidget)
+def Select2FieldWidget(field, request):
+    return FieldWidget(field, Select2Widget(request))
 
 
 class IDmsDocument(model.Schema):
