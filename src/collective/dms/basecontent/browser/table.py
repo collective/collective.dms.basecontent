@@ -1,4 +1,3 @@
-from collective.iconifiedcategory import _
 from collective.iconifiedcategory.browser.tabview import CategorizedTable
 from collective.iconifiedcategory.interfaces import ICategorizedApproved
 from collective.iconifiedcategory.interfaces import ICategorizedPrint
@@ -10,7 +9,6 @@ from zope.i18nmessageid import MessageFactory
 from zope.interface import alsoProvides
 
 import datetime
-
 
 PMF = MessageFactory("plone")
 
@@ -36,8 +34,8 @@ class TableViewlet(ViewletBase):
 
 
 class Table(CategorizedTable):
-    cssClassEven = u'even'
-    cssClassOdd = u'odd'
+    cssClassEven = "even"
+    cssClassOdd = "odd"
 
     @CachedProperty
     def translation_service(self):
@@ -49,13 +47,13 @@ class Table(CategorizedTable):
 
     def format_date(self, date, long_format=None, time_only=None):
         if date is None:
-            return u""
+            return ""
 
         # If date is a datetime object, isinstance(date, datetime.date)
         # returns True, so we use type here.
-        if type(date) == datetime.date:
+        if type(date) is datetime.date:
             date = date.strftime("%Y/%m/%d")
-        elif type(date) == datetime.datetime:
+        elif type(date) is datetime.datetime:
             date = date.strftime("%Y/%m/%d %H:%M")
 
         return self.translation_service.ulocalized_time(
@@ -73,7 +71,7 @@ class Table(CategorizedTable):
 
         isSelected = self.isSelectedRow(row)
         if isSelected and self.cssClassSelected and cssClass:
-            cssClass = "%s %s" % (self.cssClassSelected, cssClass)
+            cssClass = f"{self.cssClassSelected} {cssClass}"
         elif isSelected and self.cssClassSelected:
             cssClass = self.cssClassSelected
         cells = [self.renderCell(item, col, colspan) for item, col, colspan in row]
@@ -86,4 +84,4 @@ class Table(CategorizedTable):
                 cssClass += " row-state-%s" % state_value
 
         cssClass = self.getCSSClass("tr", cssClass)
-        return u"\n    <tr%s>%s\n    </tr>" % (cssClass, u"".join(cells))
+        return "\n    <tr{}>{}\n    </tr>".format(cssClass, "".join(cells))

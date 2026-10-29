@@ -1,13 +1,15 @@
-#! -*- coding: utf8 -*-
-from setuptools import find_packages
 from setuptools import setup
 
-
-version = "2.0.4.dev0"
+version = "3.0.0.dev0"
 
 long_description = (
     open("README.rst").read() + "\n" + "Contributors\n"
-    "============\n" + "\n" + open("CONTRIBUTORS.rst").read() + "\n" + open("CHANGES.rst").read() + "\n"
+    "============\n"
+    + "\n"
+    + open("CONTRIBUTORS.rst").read()
+    + "\n"
+    + open("CHANGES.rst").read()
+    + "\n"
 )
 
 setup(
@@ -22,53 +24,67 @@ setup(
         "Environment :: Web Environment",
         "Framework :: Plone",
         "Framework :: Plone :: Addon",
-        "Framework :: Plone :: 4.2",
-        "Framework :: Plone :: 4.3",
+        "Framework :: Plone :: 6.2",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     keywords="document management system dms viewer",
     author="Ecreall, Entrouvert, IMIO",
-    author_email="cedricmessiant@ecreall.com",
-    url="https://github.com/collective/collective.dms.basecontent",
-    download_url="https://pypi.org/project/collective.dms.basecontent",
+    author_email="support-docs@imio.be",
+    project_urls={
+        "PyPI": "https://pypi.org/project/collective.dms.basecontent",
+        "Source": "https://github.com/collective/collective.dms.basecontent",
+    },
     license="gpl",
-    packages=find_packages("src"),
-    package_dir={"": "src"},
-    namespace_packages=["collective", "collective.dms"],
     include_package_data=True,
     zip_safe=False,
+    python_requires=">=3.10",
     install_requires=[
-        "z3c.table>=2.2",
-        "collective.documentviewer",
+        "collective.eeafaceted.z3ctable",
         "collective.externaleditor",
         "collective.iconifiedcategory",
-        "collective.z3cform.select2",
         "dexterity.localrolesfield",
-        "future",
         "imio.actionspanel",
         "imio.annex",
         "imio.helpers>=0.42",
         "plone.api",
         "plone.app.contenttypes",
         "plone.app.dexterity",
+        "plone.app.layout",
         "plone.app.relationfield",
-        "plone.directives.form",
-        "plone.formwidget.contenttree",
+        "plone.app.z3cform",
+        "plone.autoform",
+        "plone.base",
+        "plone.dexterity",
+        "plone.indexer",
         "plone.namedfile",
-        "plone.principalsource",
-        "setuptools",
-        "z3c.blobfile",
+        "plone.protect",
+        "plone.supermodel",
+        "Products.CMFCore",
+        "z3c.form",
+        "z3c.relationfield",
+        "z3c.table>=2.2",
+        "zc.relation",
+        "Zope",
+        "zope.intid",
     ],
     extras_require={
-        "test": ["plone.app.testing", "ecreall.helpers.testing", "plone.app.vocabularies"],
+        "test": [
+            "ecreall.helpers.testing",
+            "plone.app.robotframework",
+            "plone.app.testing",
+            "plone.testing",
+            "robotsuite",
+        ],
     },
     entry_points="""
     # -*- Entry points: -*-
-    [z3c.autoinclude.plugin]
-    target = plone
     """,
 )
