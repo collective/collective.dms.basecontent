@@ -22,6 +22,8 @@ Changelog
   [chris-adam]
 - Removed the select2 pattern class from the recipient groups display (mockup "query function not defined" error).
   [chris-adam]
+- Dropped support for Plone versions below 6.2.
+  [chris-adam]
 
 
 2.0.3 (2026-03-26)
