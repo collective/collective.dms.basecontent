@@ -1,12 +1,10 @@
 from Acquisition import aq_base  # noqa
-from collective.dms.basecontent import _
 from collective.eeafaceted.z3ctable.columns import BaseColumn
 from Products.CMFCore.WorkflowCore import WorkflowException
 from zope.i18n import translate
 from zope.i18nmessageid import MessageFactory
 
 import Missing
-
 
 PMF = MessageFactory("plone")
 
@@ -35,7 +33,7 @@ class DateColumn(BaseColumn):
 
 
 class StateColumn(BaseColumn):
-    header = PMF(u"State")
+    header = PMF("State")
     weight = 50
 
     def renderCell(self, item):
@@ -44,11 +42,11 @@ class StateColumn(BaseColumn):
             portal_type = get_value(item, "portal_type")
             review_state = get_value(item, "review_state")
             if not review_state:
-                return u""
+                return ""
             state_title = wtool.getTitleForStateOnType(review_state, portal_type)
             return translate(PMF(state_title), context=self.request)
         except WorkflowException:
-            return u""
+            return ""
 
 
 class LabelColumn(BaseColumn):

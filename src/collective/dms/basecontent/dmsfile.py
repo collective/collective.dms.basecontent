@@ -1,45 +1,56 @@
-# coding=utf-8
 from BTrees.Length import Length
 from collective.dms.basecontent import _
 from imio.annex.content.annex import Annex
 from imio.annex.content.annex import IAnnex
 from plone.autoform import directives as form
+from plone.base.utils import base_hasattr
 from plone.dexterity.schema import DexteritySchemaPolicy
-from plone.directives.form import default_value
-from Products.CMFPlone.utils import base_hasattr
-from Products.CMFPlone.utils import safe_unicode
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
-from zope.interface import implements
+from zope.interface import implementer
+from zope.interface import provider
+from zope.schema.interfaces import IContextAwareDefaultFactory
+
+
+@provider(IContextAwareDefaultFactory)
+def titleDefaultValue(container):
+    annotations = IAnnotations(container)
+    if "higher_version" not in annotations:
+        version_number = 1
+    else:
+        version_number = annotations["higher_version"].value + 1
+    return str(version_number)
 
 
 class IDmsFile(IAnnex):
     """Schema for DmsFile"""
 
-    title = schema.TextLine(title=_(u"Version number"), required=False)
+    title = schema.TextLine(
+        title=_("Version number"), required=False, defaultFactory=titleDefaultValue
+    )
 
     form.mode(label="hidden")
     label = schema.TextLine(
-        title=_(u"Label"),
+        title=_("Label"),
         required=False,
     )
 
     form.mode(description="hidden")
 
 
+@implementer(IDmsFile)
 class DmsFile(Annex):
     """DmsFile"""
 
-    implements(IDmsFile)
     __ac_local_roles_block__ = True
 
     incomingmail = False
 
     def Title(self):
         if self.incomingmail:
-            return _(u"Incoming mail")
+            return _("Incoming mail")
         elif base_hasattr(self, "signed") and self.signed:
-            return _(u"Signed version")
+            return _("Signed version")
         else:
             return self.title
 
@@ -53,14 +64,15 @@ class DmsFileSchemaPolicy(DexteritySchemaPolicy):
 
 class IDmsAppendixFile(IAnnex):
     """Schema for DmsAppendixFile"""
+
     form.mode(title="hidden")
     form.mode(description="hidden")
 
 
+@implementer(IDmsAppendixFile)
 class DmsAppendixFile(Annex):
     """DmsAppendixFile"""
 
-    implements(IDmsAppendixFile)
     __ac_local_roles_block__ = True
 
 
@@ -69,17 +81,6 @@ class DmsAppendixFileSchemaPolicy(DexteritySchemaPolicy):
 
     def bases(self, schemaName, tree):
         return (IDmsAppendixFile,)
-
-
-@default_value(field=IDmsFile["title"])
-def titleDefaultValue(data):
-    container = data.context
-    annotations = IAnnotations(container)
-    if "higher_version" not in annotations:
-        version_number = 1
-    else:
-        version_number = annotations["higher_version"].value + 1
-    return safe_unicode(version_number)
 
 
 def update_higher_version(context, event):

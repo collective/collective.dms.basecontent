@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 from plone import api
+from plone.base.utils import get_installer
 
 import logging
-
 
 logger = logging.getLogger("collective.dms.basecontent: upgrade. ")
 
@@ -25,7 +24,7 @@ def v2(context):
                         cleaned_local_roles.remove(role)
                     except ValueError:
                         # if a role to remove was already removed (???) pass
-                        logger.warn(
+                        logger.warning(
                             "Failed to remove role '%s' for principal '%s' on object '%s'"
                             % (role, local_principal, "/".join(obj.getPhysicalPath()))
                         )
@@ -39,14 +38,11 @@ def v2(context):
 
 def v3(context):
     # uninstall chosen products
-    pqi = api.portal.get_tool("portal_quickinstaller")
-    inst_prd = [dic["id"] for dic in pqi.listInstalledProducts() if dic["status"] == "installed"]
+    portal = api.portal.get()
+    qi_tool = get_installer(portal, portal.REQUEST)
     for prd in ("collective.z3cform.chosen", "collective.js.chosen"):
-        if prd in inst_prd:
-            pqi.uninstallProducts([prd])
-    # install select2
-    setup = api.portal.get_tool("portal_setup")
-    setup.runAllImportStepsFromProfile("profile-collective.z3cform.select2:default", dependency_strategy="new")
+        if qi_tool.is_product_installed(prd):
+            qi_tool.uninstall_product(prd)
 
 
 def v4(context):
@@ -61,4 +57,6 @@ def v4(context):
         object_buttons.manage_delObjects(["download"])
     # Add download and view_element actions to dmsdocument and dmsappendixfile FTIs
     setup = api.portal.get_tool("portal_setup")
-    setup.runImportStepFromProfile("profile-collective.dms.basecontent:default", "typeinfo")
+    setup.runImportStepFromProfile(
+        "profile-collective.dms.basecontent:default", "typeinfo"
+    )

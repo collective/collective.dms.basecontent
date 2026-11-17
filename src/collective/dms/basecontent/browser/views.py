@@ -1,42 +1,56 @@
-from collective.documentviewer.views import DocumentViewerView
-from collective.externaleditor.browser.views import ExternalEditorEnabledView as BaseExternalEditorEnabledView
+from collective.externaleditor.browser.views import (
+    ExternalEditorEnabledView as BaseExternalEditorEnabledView,
+)
 from plone.dexterity.browser.edit import DefaultEditForm
 from plone.dexterity.browser.view import DefaultView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getMultiAdapter
 
-import json
 import os
 
+try:
+    from collective.documentviewer.browser.views import DocumentViewerView
+except (
+    ImportError
+):  # collective.documentviewer is not available on Plone 6.2 (replaced, viewer not decided)
+    DocumentViewerView = None
 
-class VersionViewerView(DocumentViewerView):
-    def index(self):
-        self.table = self.context.restrictedTraverse('@@iconifiedcategory_table')
-        return super(VersionViewerView, self).index()
 
+if DocumentViewerView is not None:
 
-class JSONVersionViewerView(DocumentViewerView):
-    def index(self):
-        self.request.response.setHeader("Content-Type", "application/json")
-        return json.dumps(self.dv_data())
+    class VersionViewerView(DocumentViewerView):
+        def index(self):
+            self.table = self.context.restrictedTraverse("@@iconifiedcategory_table")
+            return super().index()
+
+    class JSONVersionViewerView(DocumentViewerView):
+        def index(self):
+            self.request.response.setHeader("Content-Type", "application/json")
+            return self.pattern_options()
 
 
 class DmsDocumentView(DefaultView):
     def update(self):
-        super(DmsDocumentView, self).update()
-        self.portal_url = getMultiAdapter((self.context, self.request), name="plone_portal_state").portal_url()
+        super().update()
+        self.portal_url = getMultiAdapter(
+            (self.context, self.request), name="plone_portal_state"
+        ).portal_url()
         self.dvstatic = "%s/++resource++dv.resources" % (self.portal_url)
 
     def legend_extra(self, group):
-        return u""
+        return ""
 
 
 class DmsDocumentEdit(DefaultEditForm):
     template = ViewPageTemplateFile("templates/dmsdocument_edit.pt")
+    # Plone 6 form tabs (pat-autotoc) would make a tab of the versions fieldset, hiding the fields
+    enable_form_tabbing = False
 
     def update(self):
-        super(DmsDocumentEdit, self).update()
-        self.portal_url = getMultiAdapter((self.context, self.request), name="plone_portal_state").portal_url()
+        super().update()
+        self.portal_url = getMultiAdapter(
+            (self.context, self.request), name="plone_portal_state"
+        ).portal_url()
         self.dvstatic = "%s/++resource++dv.resources" % (self.portal_url)
 
 
@@ -46,7 +60,7 @@ class ExternalEditorEnabledView(BaseExternalEditorEnabledView):
             return False
 
         ext = os.path.splitext(self.context.file.filename)[-1].lower()
-        if ext in (u".pdf", u".jpg", ".jpeg"):
+        if ext in (".pdf", ".jpg", ".jpeg"):
             return False
 
-        return super(ExternalEditorEnabledView, self).available(bypasslock=bypasslock)
+        return super().available(bypasslock=bypasslock)

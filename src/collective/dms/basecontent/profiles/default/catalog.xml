@@ -1,12 +1,16 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <object name="portal_catalog">
-    <index name="treating_groups" meta_type="KeywordIndex">
-        <indexed_attr value="treating_groups"/>
-    </index>
+  <index meta_type="KeywordIndex"
+         name="treating_groups"
+  >
+    <indexed_attr value="treating_groups" />
+  </index>
 
-    <column value="treating_groups"/>
-    <index name="recipient_groups" meta_type="KeywordIndex">
-        <indexed_attr value="recipient_groups"/>
-    </index>
-    <column value="recipient_groups"/>
+  <column value="treating_groups" />
+  <index meta_type="KeywordIndex"
+         name="recipient_groups"
+  >
+    <indexed_attr value="recipient_groups" />
+  </index>
+  <column value="recipient_groups" />
 </object>

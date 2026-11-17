@@ -1,15 +1,17 @@
-<configure xmlns="http://namespaces.zope.org/zope"
-           xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-           i18n_domain="collective.dms.basecontent">
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.dms.basecontent"
+    >
 
-   <include file="configure.zcml"/>
+  <include file="configure.zcml" />
 
-   <genericsetup:registerProfile
+  <genericsetup:registerProfile
       name="testing"
       title="collective.dms.basecontent testing"
-      directory="profiles/testing"
       description="Testing profile for collective.dms.basecontent"
       provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/testing"
       />
 
 </configure>

@@ -1,8 +1,9 @@
 from collective.dms.basecontent.dmsdocument import IDmsDocument
 from OFS.interfaces import IItem
+from plone.base.utils import base_hasattr
+from plone.base.utils import safe_text
 from plone.indexer import indexer
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import base_hasattr
 from ZODB.POSException import ConflictError
 
 
@@ -14,7 +15,7 @@ def document_dynamic_searchable_text_indexer(obj):
     transforms = getToolByName(obj, "portal_transforms")
 
     had_version = False
-    for child in reversed(obj.values()):
+    for child in reversed(list(obj.values())):
         if child.portal_type in ("dmsmainfile", "dmsappendixfile"):
             if not child.file or child.file.getSize() == 0:
                 continue
@@ -30,13 +31,16 @@ def document_dynamic_searchable_text_indexer(obj):
             # convert it to text/plain
             try:
                 datastream = transforms.convertTo(
-                    "text/plain", child.file.data, mimetype=child.file.contentType, filename=child.file.filename
+                    "text/plain",
+                    child.file.data,
+                    mimetype=child.file.contentType,
+                    filename=child.file.filename,
                 )
-                indexed_elements.append(unicode(datastream.getData(), "utf-8"))
+                indexed_elements.append(safe_text(datastream.getData()))
             except (ConflictError, KeyboardInterrupt):
                 raise
 
-    return u" ".join(indexed_elements)
+    return " ".join(indexed_elements)
 
 
 @indexer(IItem)
